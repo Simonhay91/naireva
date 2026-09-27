@@ -4,14 +4,19 @@ import { JournalCard } from "@/components/journal/JournalCard";
 import { getPublishedPosts } from "@/lib/queries";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+import { buildAlternates } from "@/lib/i18n/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Journal",
-  description: "Practical information about rhinoplasty, preparation, recovery and travelling to Armenia for aesthetic surgery.",
-  alternates: { canonical: "/journal" }
-};
+export function generateMetadata(): Metadata {
+  const locale = getLocale();
+  const { seo } = getDictionary(locale);
+  return {
+    title: seo.journal.title,
+    description: seo.journal.description,
+    alternates: buildAlternates(locale, "/journal")
+  };
+}
 
 export default async function JournalPage() {
   const locale = getLocale();

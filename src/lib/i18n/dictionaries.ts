@@ -65,7 +65,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       },
       features: {
         procedures: { kicker: "PROCEDURES", title: "Rhinoplasty", body: "Our first focused aesthetic journey, with direct surgeon review and personalized planning." },
-        transformations: { kicker: "TRANSFORMATIONS", title: "Real patient results", body: "Verified before-and-after cases from the surgical team." },
+        transformations: { kicker: "TRANSFORMATIONS", title: "Real patient results", body: "Before-and-after cases shared by the surgical team, with patient consent." },
         surgeon: { kicker: "SURGEON", title: "Meet Dr. Hayk Bakhshyan", body: "Credentials, approach and direct pre-confirmation video consultation." },
         armenia: { kicker: "ARMENIA", title: "Beyond the clinic", body: "Yerevan, dining, wine, culture and optional private experiences around recovery." }
       },
@@ -81,7 +81,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       },
       concierge: {
         kicker: "Concierge",
-        title: "Kept, not just booked.",
+        title: "Accompanied, not just booked.",
         lead: "The concierge layer exists so the medical journey never feels like logistics you manage alone.",
         items: [
           { title: "Airport & clinic transfer", body: "Coordinated arrival, clinic visits and departure — one point of contact throughout." },
@@ -196,7 +196,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       kicker: "Real patient results",
       titleLine1: "See the work.",
       titleLine2: "Then ask the questions.",
-      lead: "This gallery contains only verified cases supplied with appropriate patient consent.",
+      lead: "A small gallery of real patient cases, shared with patient consent. Identity is never disclosed.",
       disclaimer: "Real patient cases. Individual outcomes vary and depend on individual anatomy, healing and the surgeon's clinical judgment.",
       emptyState: "Published cases will appear here once the team adds them.",
       filterAll: "All",
@@ -261,7 +261,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
       kicker: "Journal",
       title: "Useful before you decide.",
       lead: "Practical information about rhinoplasty, preparation, recovery and travelling to Armenia for aesthetic surgery.",
-      emptyState: "Articles will appear here once published in the admin panel."
+      emptyState: "Articles will appear here once published in the admin panel.",
+      byAuthor: "By {name}",
+      updated: "Updated {date}"
     },
     faqPage: {
       breadcrumb: "FAQ",
@@ -278,10 +280,16 @@ export const dictionaries: Record<Locale, Dictionary> = {
       notice:
         "This page explains, in plain terms, how the product is designed to handle your information. It is not a substitute for legal advice — contact us directly with any privacy questions.",
       sections: [
-        { title: "What we collect", body: "Contact details, the goals and history you share for your case, and any photos you choose to upload for medical review. Uploaded photos and medical notes are treated as sensitive health information." },
-        { title: "How it is stored", body: "Case photos are stored in private object storage and are never publicly reachable. Access requires an authenticated staff account with a role permitted to view case data, and every access is logged." },
-        { title: "Who sees it", body: "Your coordinator, the medical team and the reviewing surgeon. We do not sell or share your information with third parties for marketing purposes." },
-        { title: "Consent", body: "Submitting the consultation form requires explicit consent to be contacted and to have your case reviewed. Before-and-after cases are only published with separate, specific patient consent, and never with identifying information." }
+        { title: "What we collect", body: "Contact details you provide, the goals and history you share about your case when you submit a consultation request, and any photos you choose to upload for medical review. Uploaded photos and case notes are treated as sensitive health information." },
+        { title: "How we use it", body: "Your information is used to review your case, arrange a video consultation with the surgeon, and coordinate the medical journey if you proceed. We do not use it for any other purpose without your consent." },
+        { title: "How it is stored", body: "Case photos and notes are kept in private storage and are not publicly reachable. Access is limited to authenticated NAIREVA team accounts — your coordinator, the medical team and the reviewing surgeon." },
+        { title: "Service providers", body: "We rely on third-party providers for services such as hosting, file storage and email delivery. They process information only to provide that service to us and are not permitted to use it for their own purposes." },
+        { title: "Security", body: "We use reasonable technical measures, including private storage and authenticated access, to protect your information. No method of storing or transmitting information online is completely secure, and we cannot guarantee absolute security." },
+        { title: "Retention", body: "We keep your information for as long as needed to respond to your request or coordinate your case, and for a reasonable period afterward for our own records, unless you ask us to delete it sooner." },
+        { title: "Deletion and access requests", body: "You can ask us to access, correct or delete the information we hold about you at any time by contacting us. We will respond within a reasonable time." },
+        { title: "Before-and-after images", body: "Published only where appropriate patient permission has been obtained, without names, contact details, or unnecessary personal information." },
+        { title: "International visitors", body: "NAIREVA works with patients from many countries. Your information may be stored and processed in a country other than the one you are contacting us from." },
+        { title: "Contact", body: "Questions about this policy or your information can be sent to team@naireva.com." }
       ]
     },
     termsPage: {
@@ -293,7 +301,13 @@ export const dictionaries: Record<Locale, Dictionary> = {
       sections: [
         { title: "Role of NAIREVA", body: "NAIREVA is a concierge and coordination service. NAIREVA does not perform surgery and does not employ the surgeon or operate the clinic. All medical decisions — candidacy, surgical plan, and care — belong solely to the treating surgeon and clinic." },
         { title: "No medical advice", body: "Nothing on this website, in any consultation request, or in any future AI-assisted intake constitutes medical advice, a diagnosis, or a guarantee of candidacy or outcome." },
-        { title: "Pricing", body: "NAIREVA does not publish pricing. Costs are discussed only after case review and consultation, and are set by the treating clinic." }
+        { title: "Treatment eligibility", body: "Whether any procedure is appropriate for you is determined solely by the medical team and surgeon after case review and a video consultation. Nothing on this website guarantees eligibility for any procedure." },
+        { title: "Pricing", body: "NAIREVA does not publish pricing. Costs are discussed only after case review and consultation, and are set by the treating clinic." },
+        { title: "Third-party providers", body: "Surgery, clinical care, accommodation, transport and other travel services are provided by independent third parties — clinics, surgeons, hotels and transport partners. NAIREVA coordinates these services but is not responsible for their independent acts or omissions." },
+        { title: "Travel and accommodation", body: "Travel documents, visas, insurance and accommodation remain your responsibility unless otherwise agreed with your coordinator. We recommend appropriate travel insurance for any international medical trip." },
+        { title: "Changes and cancellations", body: "Any change or cancellation of a planned procedure or trip is handled individually with your coordinator and is subject to the policies of the treating clinic and any third-party providers involved." },
+        { title: "Website content", body: "Content on this website, including procedure and journal pages, is provided for general information only. We aim for it to be accurate but do not guarantee it is complete, current or error-free." },
+        { title: "Contact", body: "Questions about these terms can be sent to team@naireva.com." }
       ]
     },
     consultationPage: {
@@ -352,6 +366,24 @@ export const dictionaries: Record<Locale, Dictionary> = {
         consentError: "Please accept the consent statement to continue."
       }
     },
+    seo: {
+      siteTitle: "NAIREVA — Private Aesthetic Journeys in Armenia",
+      siteDescription:
+        "A private, concierge-led path to aesthetic surgery in Armenia — selected surgical expertise, direct surgeon video consultation and a fully coordinated journey.",
+      home: {
+        title: "Private Aesthetic Journeys in Armenia",
+        description:
+          "A private, concierge-led path to aesthetic surgery in Armenia — selected surgical expertise, direct surgeon video consultation and a fully coordinated journey."
+      },
+      procedures: { title: "Procedures", description: "Selected aesthetic procedures, coordinated from first review to recovery — beginning with rhinoplasty in Armenia." },
+      journey: { title: "Your Journey", description: "How a private aesthetic journey with NAIREVA actually works, from first request to your return home." },
+      armenia: { title: "Armenia", description: "Armenia is part of the experience, not just the treatment location — Yerevan, culture and optional private experiences around recovery." },
+      concierge: { title: "Concierge", description: "How NAIREVA coordinates transfer, clinic logistics, personal contact and optional tourism around your medical plan." },
+      journal: { title: "Journal", description: "Practical information about rhinoplasty, preparation, recovery and travelling to Armenia for aesthetic surgery." },
+      consultation: { title: "Private Consultation", description: "Send the basics privately. We will contact you by WhatsApp, Telegram or email and prepare your case for the medical team." },
+      faq: { title: "FAQ", description: "Answers to common questions about the NAIREVA process, privacy, pricing and travel." },
+      transformations: { title: "Transformations", description: "Real patient before-and-after cases, shared with consent. Individual outcomes vary." }
+    },
     // Only "en"'s localeBanner is actually read (the suggestion banner only
     // ever fires from the default English page — see LocaleSuggestionBanner
     // and spec §16 on never auto-switching locale without user action).
@@ -407,7 +439,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       },
       features: {
         procedures: { kicker: "ПРОЦЕДУРЫ", title: "Ринопластика", body: "Наше первое направление — с прямым рассмотрением случая хирургом и персональным планированием." },
-        transformations: { kicker: "РЕЗУЛЬТАТЫ", title: "Реальные результаты пациентов", body: "Проверенные случаи «до и после» от хирургической команды." },
+        transformations: { kicker: "РЕЗУЛЬТАТЫ", title: "Реальные результаты пациентов", body: "Случаи «до и после», предоставленные хирургической командой с согласия пациентов." },
         surgeon: { kicker: "ХИРУРГ", title: "Знакомство с д-ром Айком Бахшяном", body: "Квалификация, подход и видеоконсультация перед подтверждением." },
         armenia: { kicker: "АРМЕНИЯ", title: "Не только клиника", body: "Ереван, гастрономия, вино, культура и частные впечатления в период восстановления." }
       },
@@ -538,7 +570,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       kicker: "Реальные результаты пациентов",
       titleLine1: "Посмотрите на работу.",
       titleLine2: "Затем задайте вопросы.",
-      lead: "Эта галерея содержит только проверенные случаи, предоставленные с соответствующего согласия пациента.",
+      lead: "Небольшая галерея реальных случаев пациентов, опубликованных с их согласия. Личность пациента никогда не раскрывается.",
       disclaimer: "Реальные случаи пациентов. Индивидуальные результаты могут отличаться и зависят от анатомии, заживления и клинического решения хирурга.",
       emptyState: "Опубликованные случаи появятся здесь после добавления командой.",
       filterAll: "Все",
@@ -603,7 +635,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
       kicker: "Журнал",
       title: "Полезно перед решением.",
       lead: "Практическая информация о ринопластике, подготовке, восстановлении и поездке в Армению для эстетической хирургии.",
-      emptyState: "Статьи появятся здесь после публикации в админ-панели."
+      emptyState: "Статьи появятся здесь после публикации в админ-панели.",
+      byAuthor: "Автор: {name}",
+      updated: "Обновлено {date}"
     },
     faqPage: {
       breadcrumb: "Вопросы",
@@ -620,10 +654,16 @@ export const dictionaries: Record<Locale, Dictionary> = {
       notice:
         "Эта страница простыми словами объясняет, как продукт спроектирован для работы с вашей информацией. Она не заменяет юридическую консультацию — по любым вопросам о конфиденциальности свяжитесь с нами напрямую.",
       sections: [
-        { title: "Что мы собираем", body: "Контактные данные, цели и анамнез, которыми вы делитесь для своего случая, и любые фотографии, которые вы решите загрузить для медицинского рассмотрения. Загруженные фотографии и медицинские заметки считаются чувствительной медицинской информацией." },
-        { title: "Как это хранится", body: "Фотографии случаев хранятся в приватном объектном хранилище и никогда не доступны публично. Доступ требует аутентифицированной учётной записи сотрудника с ролью, позволяющей просматривать данные случая, и каждый доступ регистрируется." },
-        { title: "Кто это видит", body: "Ваш координатор, медицинская команда и рассматривающий хирург. Мы не продаём и не передаём вашу информацию третьим лицам в маркетинговых целях." },
-        { title: "Согласие", body: "Отправка формы консультации требует явного согласия на то, чтобы с вами связались и рассмотрели ваш случай. Случаи «до и после» публикуются только с отдельного, конкретного согласия пациента и никогда с идентифицирующей информацией." }
+        { title: "Что мы собираем", body: "Контактные данные, которые вы указываете, цели и анамнез, которыми вы делитесь при подаче заявки на консультацию, и любые фотографии, которые вы решите загрузить для медицинского рассмотрения. Загруженные фотографии и заметки по случаю считаются чувствительной медицинской информацией." },
+        { title: "Как мы используем информацию", body: "Ваша информация используется для рассмотрения случая, организации видеоконсультации с хирургом и координации медицинского путешествия, если вы решите продолжить. Мы не используем её для иных целей без вашего согласия." },
+        { title: "Как это хранится", body: "Фотографии и заметки по случаю хранятся в приватном хранилище и не доступны публично. Доступ есть только у аутентифицированных учётных записей команды NAIREVA — вашего координатора, медицинской команды и рассматривающего хирурга." },
+        { title: "Поставщики услуг", body: "Мы используем сторонних поставщиков для таких услуг, как хостинг, хранение файлов и доставка email. Они обрабатывают информацию только для оказания этой услуги нам и не имеют права использовать её в своих целях." },
+        { title: "Безопасность", body: "Мы применяем разумные технические меры, включая приватное хранение и аутентифицированный доступ, для защиты вашей информации. Ни один способ хранения или передачи данных онлайн не является абсолютно безопасным, и мы не можем гарантировать полную безопасность." },
+        { title: "Хранение данных", body: "Мы храним вашу информацию столько, сколько нужно для ответа на ваш запрос или координации случая, и разумный период после этого для собственного учёта, если вы не попросите удалить её раньше." },
+        { title: "Удаление и запросы доступа", body: "Вы можете в любой момент запросить доступ, исправление или удаление информации, которую мы храним о вас, связавшись с нами. Мы ответим в разумный срок." },
+        { title: "Фотографии «до и после»", body: "Публикуются только при наличии соответствующего разрешения пациента, без имён, контактных данных и без ненужной личной информации." },
+        { title: "Международные пациенты", body: "NAIREVA работает с пациентами из многих стран. Ваша информация может храниться и обрабатываться в стране, отличной от той, из которой вы к нам обращаетесь." },
+        { title: "Контакты", body: "Вопросы об этой политике или вашей информации можно направить на team@naireva.com." }
       ]
     },
     termsPage: {
@@ -635,7 +675,13 @@ export const dictionaries: Record<Locale, Dictionary> = {
       sections: [
         { title: "Роль NAIREVA", body: "NAIREVA — это консьерж-сервис и координация. NAIREVA не проводит операции и не является работодателем хирурга или оператором клиники. Все медицинские решения — пригодность, хирургический план и уход — принадлежат исключительно лечащему хирургу и клинике." },
         { title: "Не медицинская консультация", body: "Ничто на этом сайте, в заявке на консультацию или в любом будущем ИИ-опросе не является медицинской консультацией, диагнозом или гарантией пригодности либо результата." },
-        { title: "Цены", body: "NAIREVA не публикует цены. Стоимость обсуждается только после рассмотрения случая и консультации и устанавливается лечащей клиникой." }
+        { title: "Пригодность к лечению", body: "Подходит ли вам та или иная процедура, определяют только медицинская команда и хирург после рассмотрения случая и видеоконсультации. Ничто на этом сайте не гарантирует пригодность к какой-либо процедуре." },
+        { title: "Цены", body: "NAIREVA не публикует цены. Стоимость обсуждается только после рассмотрения случая и консультации и устанавливается лечащей клиникой." },
+        { title: "Сторонние поставщики услуг", body: "Хирургическую помощь, проживание, транспорт и другие услуги, связанные с поездкой, предоставляют независимые третьи стороны — клиники, хирурги, отели и транспортные партнёры. NAIREVA координирует эти услуги, но не отвечает за самостоятельные действия или упущения этих сторон." },
+        { title: "Поездка и проживание", body: "Проездные документы, визы, страхование и проживание остаются на вашей ответственности, если иное не согласовано с вашим координатором. Мы рекомендуем оформить соответствующую туристическую страховку для любой международной медицинской поездки." },
+        { title: "Изменения и отмена", body: "Любое изменение или отмена запланированной процедуры или поездки рассматривается индивидуально с вашим координатором и зависит от политики лечащей клиники и вовлечённых сторонних партнёров." },
+        { title: "Содержание сайта", body: "Содержание этого сайта, включая страницы процедур и журнала, предоставляется только в общих информационных целях. Мы стремимся к его точности, но не гарантируем полноту, актуальность или отсутствие ошибок." },
+        { title: "Контакты", body: "Вопросы об этих условиях можно направить на team@naireva.com." }
       ]
     },
     consultationPage: {
@@ -694,6 +740,24 @@ export const dictionaries: Record<Locale, Dictionary> = {
         consentError: "Пожалуйста, примите согласие, чтобы продолжить."
       }
     },
+    seo: {
+      siteTitle: "NAIREVA — Частные эстетические путешествия в Армению",
+      siteDescription:
+        "Частный путь к эстетической хирургии в Армении в сопровождении консьержа — отобранная хирургическая экспертиза, прямая видеоконсультация с хирургом и полностью скоординированное путешествие.",
+      home: {
+        title: "Частные эстетические путешествия в Армению",
+        description:
+          "Частный путь к эстетической хирургии в Армении в сопровождении консьержа — отобранная хирургическая экспертиза, прямая видеоконсультация с хирургом и полностью скоординированное путешествие."
+      },
+      procedures: { title: "Процедуры", description: "Отобранные эстетические процедуры, скоординированные от первого рассмотрения до восстановления — начиная с ринопластики в Армении." },
+      journey: { title: "Ваше путешествие", description: "Как на самом деле работает частное эстетическое путешествие с NAIREVA — от первого запроса до возвращения домой." },
+      armenia: { title: "Армения", description: "Армения — часть опыта, а не просто место лечения — Ереван, культура и опциональные частные впечатления вокруг восстановления." },
+      concierge: { title: "Консьерж", description: "Как NAIREVA координирует трансфер, логистику клиники, личный контакт и опциональный туризм вокруг вашего медицинского плана." },
+      journal: { title: "Журнал", description: "Практическая информация о ринопластике, подготовке, восстановлении и поездке в Армению для эстетической хирургии." },
+      consultation: { title: "Частная консультация", description: "Отправьте основную информацию лично. Мы свяжемся с вами через WhatsApp, Telegram или email и подготовим ваш случай для медицинской команды." },
+      faq: { title: "Вопросы и ответы", description: "Ответы на частые вопросы о процессе NAIREVA, конфиденциальности, ценах и поездке." },
+      transformations: { title: "Результаты", description: "Реальные случаи пациентов «до и после», опубликованные с их согласия. Индивидуальные результаты могут отличаться." }
+    },
     localeBanner: {
       ru: { question: "Show this site in Russian?", accept: "Show in Russian", dismiss: "Stay in English" },
       es: { question: "Show this site in Spanish?", accept: "Show in Spanish", dismiss: "Stay in English" },
@@ -744,7 +808,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       },
       features: {
         procedures: { kicker: "PROCEDIMIENTOS", title: "Rinoplastia", body: "Nuestro primer viaje estético enfocado, con revisión directa del cirujano y planificación personalizada." },
-        transformations: { kicker: "TRANSFORMACIONES", title: "Resultados reales de pacientes", body: "Casos de antes y después verificados por el equipo quirúrgico." },
+        transformations: { kicker: "TRANSFORMACIONES", title: "Resultados reales de pacientes", body: "Casos de antes y después compartidos por el equipo quirúrgico, con el consentimiento del paciente." },
         surgeon: { kicker: "CIRUJANO", title: "Conozca al Dr. Hayk Bakhshyan", body: "Credenciales, enfoque y videoconsulta directa antes de la confirmación." },
         armenia: { kicker: "ARMENIA", title: "Más allá de la clínica", body: "Ereván, gastronomía, vino, cultura y experiencias privadas opcionales durante la recuperación." }
       },
@@ -875,7 +939,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       kicker: "Resultados reales de pacientes",
       titleLine1: "Vea el trabajo.",
       titleLine2: "Luego haga las preguntas.",
-      lead: "Esta galería contiene solo casos verificados, proporcionados con el consentimiento adecuado del paciente.",
+      lead: "Una pequeña galería de casos reales de pacientes, compartidos con su consentimiento. La identidad del paciente nunca se revela.",
       disclaimer: "Casos reales de pacientes. Los resultados individuales varían y dependen de la anatomía, la cicatrización y el criterio clínico del cirujano.",
       emptyState: "Los casos publicados aparecerán aquí una vez que el equipo los añada.",
       filterAll: "Todos",
@@ -940,7 +1004,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
       kicker: "Revista",
       title: "Útil antes de decidir.",
       lead: "Información práctica sobre rinoplastia, preparación, recuperación y viajes a Armenia para cirugía estética.",
-      emptyState: "Los artículos aparecerán aquí una vez publicados en el panel de administración."
+      emptyState: "Los artículos aparecerán aquí una vez publicados en el panel de administración.",
+      byAuthor: "Por {name}",
+      updated: "Actualizado el {date}"
     },
     faqPage: {
       breadcrumb: "Preguntas",
@@ -957,10 +1023,16 @@ export const dictionaries: Record<Locale, Dictionary> = {
       notice:
         "Esta página explica, en términos simples, cómo está diseñado el producto para manejar su información. No sustituye el asesoramiento legal — para cualquier consulta sobre privacidad, contáctenos directamente.",
       sections: [
-        { title: "Qué recopilamos", body: "Datos de contacto, los objetivos y el historial que comparte para su caso, y cualquier foto que decida subir para revisión médica. Las fotos subidas y las notas médicas se tratan como información de salud sensible." },
-        { title: "Cómo se almacena", body: "Las fotos de los casos se almacenan en un almacenamiento de objetos privado y nunca son accesibles públicamente. El acceso requiere una cuenta de personal autenticada con un rol autorizado para ver los datos del caso, y cada acceso queda registrado." },
-        { title: "Quién lo ve", body: "Su coordinador, el equipo médico y el cirujano que revisa el caso. No vendemos ni compartimos su información con terceros con fines de marketing." },
-        { title: "Consentimiento", body: "Enviar el formulario de consulta requiere consentimiento explícito para ser contactado y para que se revise su caso. Los casos de antes y después solo se publican con un consentimiento separado y específico del paciente, y nunca con información identificativa." }
+        { title: "Qué recopilamos", body: "Los datos de contacto que usted proporciona, los objetivos y el historial que comparte al enviar una solicitud de consulta, y cualquier foto que decida subir para revisión médica. Las fotos subidas y las notas del caso se tratan como información de salud sensible." },
+        { title: "Cómo la usamos", body: "Su información se utiliza para revisar su caso, organizar una videoconsulta con el cirujano y coordinar el viaje médico si decide continuar. No la utilizamos para ningún otro fin sin su consentimiento." },
+        { title: "Cómo se almacena", body: "Las fotos y notas del caso se guardan en un almacenamiento privado y no son accesibles públicamente. El acceso está limitado a cuentas autenticadas del equipo de NAIREVA — su coordinador, el equipo médico y el cirujano que revisa el caso." },
+        { title: "Proveedores de servicios", body: "Utilizamos proveedores externos para servicios como alojamiento, almacenamiento de archivos y envío de correo electrónico. Estos procesan la información solo para prestarnos ese servicio y no pueden utilizarla para sus propios fines." },
+        { title: "Seguridad", body: "Aplicamos medidas técnicas razonables, incluido el almacenamiento privado y el acceso autenticado, para proteger su información. Ningún método de almacenamiento o transmisión de datos en línea es completamente seguro, y no podemos garantizar una seguridad absoluta." },
+        { title: "Conservación de datos", body: "Conservamos su información durante el tiempo necesario para responder a su solicitud o coordinar su caso, y un período razonable después para nuestros propios registros, salvo que nos pida eliminarla antes." },
+        { title: "Eliminación y solicitudes de acceso", body: "Puede solicitarnos en cualquier momento acceder, corregir o eliminar la información que tenemos sobre usted, contactándonos. Responderemos en un plazo razonable." },
+        { title: "Imágenes de antes y después", body: "Se publican únicamente cuando se ha obtenido el permiso adecuado del paciente, sin nombres, datos de contacto ni información personal innecesaria." },
+        { title: "Visitantes internacionales", body: "NAIREVA trabaja con pacientes de muchos países. Su información puede almacenarse y procesarse en un país distinto de aquel desde el que nos contacta." },
+        { title: "Contacto", body: "Las preguntas sobre esta política o su información pueden enviarse a team@naireva.com." }
       ]
     },
     termsPage: {
@@ -972,7 +1044,13 @@ export const dictionaries: Record<Locale, Dictionary> = {
       sections: [
         { title: "Función de NAIREVA", body: "NAIREVA es un servicio de concierge y coordinación. NAIREVA no realiza cirugías ni emplea al cirujano ni opera la clínica. Todas las decisiones médicas — candidatura, plan quirúrgico y cuidado — corresponden únicamente al cirujano tratante y a la clínica." },
         { title: "No es consejo médico", body: "Nada en este sitio web, en ninguna solicitud de consulta, ni en ninguna futura evaluación asistida por IA constituye consejo médico, un diagnóstico ni una garantía de candidatura o resultado." },
-        { title: "Precios", body: "NAIREVA no publica precios. Los costos se discuten solo después de la revisión del caso y la consulta, y los establece la clínica tratante." }
+        { title: "Elegibilidad para el tratamiento", body: "Si un procedimiento es adecuado para usted lo determinan únicamente el equipo médico y el cirujano tras la revisión del caso y una videoconsulta. Nada en este sitio garantiza la elegibilidad para ningún procedimiento." },
+        { title: "Precios", body: "NAIREVA no publica precios. Los costos se discuten solo después de la revisión del caso y la consulta, y los establece la clínica tratante." },
+        { title: "Proveedores externos", body: "La cirugía, la atención clínica, el alojamiento, el transporte y otros servicios de viaje son prestados por terceros independientes — clínicas, cirujanos, hoteles y socios de transporte. NAIREVA coordina estos servicios, pero no es responsable de los actos u omisiones independientes de dichos terceros." },
+        { title: "Viaje y alojamiento", body: "Los documentos de viaje, visados, seguros y alojamiento siguen siendo su responsabilidad, salvo que se acuerde otra cosa con su coordinador. Recomendamos contar con un seguro de viaje adecuado para cualquier desplazamiento médico internacional." },
+        { title: "Cambios y cancelaciones", body: "Cualquier cambio o cancelación de un procedimiento o viaje planificado se trata de forma individual con su coordinador y está sujeto a las políticas de la clínica tratante y de los terceros involucrados." },
+        { title: "Contenido del sitio web", body: "El contenido de este sitio, incluidas las páginas de procedimientos y de la revista, se ofrece solo con fines informativos generales. Procuramos que sea preciso, pero no garantizamos que sea completo, actual o esté libre de errores." },
+        { title: "Contacto", body: "Las preguntas sobre estos términos pueden enviarse a team@naireva.com." }
       ]
     },
     consultationPage: {
@@ -1031,6 +1109,24 @@ export const dictionaries: Record<Locale, Dictionary> = {
         consentError: "Por favor, acepte la declaración de consentimiento para continuar."
       }
     },
+    seo: {
+      siteTitle: "NAIREVA — Viajes estéticos privados en Armenia",
+      siteDescription:
+        "Un camino privado, acompañado por un concierge, hacia la cirugía estética en Armenia — experiencia quirúrgica seleccionada, videoconsulta directa con el cirujano y un viaje totalmente coordinado.",
+      home: {
+        title: "Viajes estéticos privados en Armenia",
+        description:
+          "Un camino privado, acompañado por un concierge, hacia la cirugía estética en Armenia — experiencia quirúrgica seleccionada, videoconsulta directa con el cirujano y un viaje totalmente coordinado."
+      },
+      procedures: { title: "Procedimientos", description: "Procedimientos estéticos seleccionados, coordinados desde la primera revisión hasta la recuperación — comenzando con la rinoplastia en Armenia." },
+      journey: { title: "Su viaje", description: "Cómo funciona realmente un viaje estético privado con NAIREVA, desde la primera solicitud hasta su regreso a casa." },
+      armenia: { title: "Armenia", description: "Armenia es parte de la experiencia, no solo el lugar del tratamiento — Ereván, cultura y experiencias privadas opcionales en torno a la recuperación." },
+      concierge: { title: "Concierge", description: "Cómo NAIREVA coordina el traslado, la logística de la clínica, el contacto personal y el turismo opcional en torno a su plan médico." },
+      journal: { title: "Revista", description: "Información práctica sobre rinoplastia, preparación, recuperación y viajes a Armenia para cirugía estética." },
+      consultation: { title: "Consulta privada", description: "Envíe lo básico de forma privada. Nos pondremos en contacto por WhatsApp, Telegram o correo electrónico y prepararemos su caso para el equipo médico." },
+      faq: { title: "Preguntas frecuentes", description: "Respuestas a preguntas comunes sobre el proceso de NAIREVA, la privacidad, los precios y los viajes." },
+      transformations: { title: "Transformaciones", description: "Casos reales de pacientes de antes y después, compartidos con su consentimiento. Los resultados individuales varían." }
+    },
     localeBanner: {
       ru: { question: "Show this site in Russian?", accept: "Show in Russian", dismiss: "Stay in English" },
       es: { question: "Show this site in Spanish?", accept: "Show in Spanish", dismiss: "Stay in English" },
@@ -1081,7 +1177,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       },
       features: {
         procedures: { kicker: "الإجراءات", title: "تجميل الأنف", body: "رحلتنا التجميلية المتخصصة الأولى، بمراجعة مباشرة من الجراح وتخطيط شخصي." },
-        transformations: { kicker: "التحولات", title: "نتائج حقيقية لمرضى فعليين", body: "حالات قبل وبعد موثّقة من الفريق الجراحي." },
+        transformations: { kicker: "التحولات", title: "نتائج حقيقية لمرضى فعليين", body: "حالات قبل وبعد شاركها الفريق الجراحي بموافقة المرضى." },
         surgeon: { kicker: "الجراح", title: "تعرّفوا على الدكتور هايك باكشيان", body: "المؤهلات، والمنهج، واستشارة فيديو مباشرة قبل التأكيد." },
         armenia: { kicker: "أرمينيا", title: "أبعد من العيادة", body: "يريفان، والمأكولات، والنبيذ، والثقافة، وتجارب خاصة اختيارية أثناء التعافي." }
       },
@@ -1212,7 +1308,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       kicker: "نتائج حقيقية لمرضى فعليين",
       titleLine1: "شاهدوا النتائج.",
       titleLine2: "ثم اطرحوا الأسئلة.",
-      lead: "يحتوي هذا المعرض على حالات موثّقة فقط، مُقدَّمة بموافقة المريض المناسبة.",
+      lead: "معرض صغير لحالات مرضى حقيقية، تُنشَر بموافقتهم. لا يتم الكشف عن هوية المريض أبدًا.",
       disclaimer: "حالات حقيقية لمرضى فعليين. تختلف النتائج الفردية وتعتمد على التركيب التشريحي وسرعة الشفاء وتقدير الجراح السريري.",
       emptyState: "ستظهر الحالات المنشورة هنا بعد إضافتها من قِبل الفريق.",
       filterAll: "الكل",
@@ -1277,7 +1373,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
       kicker: "المجلة",
       title: "معلومات مفيدة قبل اتخاذ القرار.",
       lead: "معلومات عملية حول تجميل الأنف، والتحضير، والتعافي، والسفر إلى أرمينيا لأغراض الجراحة التجميلية.",
-      emptyState: "ستظهر المقالات هنا بعد نشرها من لوحة التحكم."
+      emptyState: "ستظهر المقالات هنا بعد نشرها من لوحة التحكم.",
+      byAuthor: "بقلم {name}",
+      updated: "آخر تحديث {date}"
     },
     faqPage: {
       breadcrumb: "الأسئلة",
@@ -1294,10 +1392,16 @@ export const dictionaries: Record<Locale, Dictionary> = {
       notice:
         "توضح هذه الصفحة، بعبارات بسيطة، كيف صُمِّم المنتج للتعامل مع معلوماتكم. وهي لا تُغني عن الاستشارة القانونية — لأي أسئلة تتعلق بالخصوصية، يُرجى التواصل معنا مباشرة.",
       sections: [
-        { title: "ما الذي نجمعه", body: "بيانات التواصل، والأهداف والتاريخ الطبي الذي تشاركونه بخصوص حالتكم، وأي صور تختارون تحميلها للمراجعة الطبية. تُعامل الصور والملاحظات الطبية المُحمَّلة كمعلومات صحية حساسة." },
-        { title: "كيف يتم تخزينها", body: "تُخزَّن صور الحالات في تخزين خاص للملفات ولا تكون متاحة للعامة أبدًا. يتطلب الوصول حسابًا موظفًا موثّقًا بصلاحية تخوّل عرض بيانات الحالة، ويُسجَّل كل وصول." },
-        { title: "من يراها", body: "منسّقكم، والفريق الطبي، والجراح المراجع. لا نبيع معلوماتكم ولا نشاركها مع أطراف ثالثة لأغراض تسويقية." },
-        { title: "الموافقة", body: "يتطلب إرسال نموذج الاستشارة موافقة صريحة على التواصل معكم ومراجعة حالتكم. تُنشَر حالات ما قبل وبعد فقط بموافقة منفصلة ومحددة من المريض، ودون أي معلومات تحدد الهوية أبدًا." }
+        { title: "ما الذي نجمعه", body: "بيانات التواصل التي تقدّمونها، والأهداف والتاريخ الطبي الذي تشاركونه عند إرسال طلب استشارة، وأي صور تختارون تحميلها للمراجعة الطبية. تُعامل الصور وملاحظات الحالة المُحمَّلة كمعلومات صحية حساسة." },
+        { title: "كيف نستخدمها", body: "تُستخدم معلوماتكم لمراجعة حالتكم، وتنظيم استشارة فيديو مع الجراح، وتنسيق الرحلة الطبية في حال قررتم المتابعة. لا نستخدمها لأي غرض آخر دون موافقتكم." },
+        { title: "كيف يتم تخزينها", body: "تُحفظ صور وملاحظات الحالة في تخزين خاص وغير متاحة للعامة. يقتصر الوصول إليها على حسابات موثّقة لفريق NAIREVA — منسّقكم، والفريق الطبي، والجراح المراجع." },
+        { title: "مزوّدو الخدمات", body: "نستخدم مزوّدين خارجيين لخدمات مثل الاستضافة، وتخزين الملفات، وإرسال البريد الإلكتروني. تعالج هذه الجهات المعلومات فقط لتقديم تلك الخدمة لنا، وليس مسموحًا لها استخدامها لأغراضها الخاصة." },
+        { title: "الأمان", body: "نطبّق تدابير تقنية معقولة، بما فيها التخزين الخاص والوصول الموثّق، لحماية معلوماتكم. لا توجد طريقة لتخزين أو نقل البيانات عبر الإنترنت آمنة بشكل كامل، ولا يمكننا ضمان أمان مطلق." },
+        { title: "مدة الاحتفاظ بالبيانات", body: "نحتفظ بمعلوماتكم للمدة اللازمة للرد على طلبكم أو تنسيق حالتكم، ولفترة معقولة بعد ذلك لسجلاتنا الخاصة، إلا إذا طلبتم حذفها قبل ذلك." },
+        { title: "الحذف وطلبات الوصول", body: "يمكنكم في أي وقت طلب الوصول إلى معلوماتكم أو تصحيحها أو حذفها بالتواصل معنا. سنرد في غضون وقت معقول." },
+        { title: "صور ما قبل وبعد", body: "تُنشَر فقط عند الحصول على إذن مناسب من المريض، دون أسماء أو بيانات تواصل أو أي معلومات شخصية غير ضرورية." },
+        { title: "الزوّار من خارج البلاد", body: "تعمل NAIREVA مع مرضى من بلدان عديدة. قد تُخزَّن معلوماتكم وتُعالَج في بلد مختلف عن البلد الذي تتواصلون معنا منه." },
+        { title: "التواصل", body: "يمكن إرسال الأسئلة حول هذه السياسة أو حول معلوماتكم إلى team@naireva.com." }
       ]
     },
     termsPage: {
@@ -1309,7 +1413,13 @@ export const dictionaries: Record<Locale, Dictionary> = {
       sections: [
         { title: "دور NAIREVA", body: "NAIREVA هي خدمة كونسيرج وتنسيق. لا تقوم NAIREVA بإجراء العمليات الجراحية، ولا تُوظّف الجراح، ولا تدير العيادة. تعود جميع القرارات الطبية — الأهلية، والخطة الجراحية، والعناية — للجراح المعالج والعيادة وحدهما." },
         { title: "ليست نصيحة طبية", body: "لا يُعد أي محتوى في هذا الموقع، أو في أي طلب استشارة، أو في أي عملية جمع معلومات مستقبلية بمساعدة الذكاء الاصطناعي نصيحة طبية أو تشخيصًا أو ضمانًا للأهلية أو النتيجة." },
-        { title: "الأسعار", body: "لا تنشر NAIREVA أسعارًا. تتم مناقشة التكاليف فقط بعد مراجعة الحالة والاستشارة، وتحددها العيادة المعالجة." }
+        { title: "الأهلية للعلاج", body: "يحدّد الفريق الطبي والجراح وحدهما مدى مناسبة أي إجراء لكم، وذلك بعد مراجعة الحالة واستشارة فيديو. لا يضمن أي محتوى في هذا الموقع الأهلية لأي إجراء." },
+        { title: "الأسعار", body: "لا تنشر NAIREVA أسعارًا. تتم مناقشة التكاليف فقط بعد مراجعة الحالة والاستشارة، وتحددها العيادة المعالجة." },
+        { title: "مزوّدون خارجيون", body: "تُقدَّم الجراحة، والرعاية السريرية، والإقامة، والنقل، وخدمات السفر الأخرى من قِبل أطراف ثالثة مستقلة — عيادات، وجراحون، وفنادق، وشركاء نقل. تنسّق NAIREVA هذه الخدمات لكنها لا تتحمل مسؤولية أفعال أو تقصير هذه الأطراف المستقلة." },
+        { title: "السفر والإقامة", body: "تبقى وثائق السفر، والتأشيرات، والتأمين، والإقامة على مسؤوليتكم الخاصة، إلا إذا اتُّفق على غير ذلك مع منسّقكم. نوصي بالحصول على تأمين سفر مناسب لأي رحلة طبية دولية." },
+        { title: "التغييرات والإلغاء", body: "يُنظر في أي تغيير أو إلغاء لإجراء أو رحلة مُخطَّطة بشكل فردي مع منسّقكم، ويخضع لسياسات العيادة المعالجة وأي أطراف خارجية مشاركة." },
+        { title: "محتوى الموقع", body: "يُقدَّم محتوى هذا الموقع، بما فيه صفحات الإجراءات والمجلة، لأغراض إعلامية عامة فقط. نسعى لدقته، لكننا لا نضمن أنه كامل أو محدَّث أو خالٍ من الأخطاء." },
+        { title: "التواصل", body: "يمكن إرسال الأسئلة حول هذه الشروط إلى team@naireva.com." }
       ]
     },
     consultationPage: {
@@ -1367,6 +1477,24 @@ export const dictionaries: Record<Locale, Dictionary> = {
         consent: "أوافق على أن تجمع NAIREVA وتراجع هذه المعلومات، بما في ذلك أي صور، لكي تُقيَّم حالتي من قِبل الفريق الطبي والجراح المراجع. أفهم أنه لا يُتخذ أي قرار طبي قبل مراجعة الجراح واستشارة الفيديو.",
         consentError: "يرجى الموافقة على بيان الموافقة للمتابعة."
       }
+    },
+    seo: {
+      siteTitle: "NAIREVA — رحلات تجميلية خاصة في أرمينيا",
+      siteDescription:
+        "طريق خاص برفقة كونسيرج نحو الجراحة التجميلية في أرمينيا — خبرة جراحية مختارة، واستشارة فيديو مباشرة مع الجراح، ورحلة منسّقة بالكامل.",
+      home: {
+        title: "رحلات تجميلية خاصة في أرمينيا",
+        description:
+          "طريق خاص برفقة كونسيرج نحو الجراحة التجميلية في أرمينيا — خبرة جراحية مختارة، واستشارة فيديو مباشرة مع الجراح، ورحلة منسّقة بالكامل."
+      },
+      procedures: { title: "الإجراءات", description: "إجراءات تجميلية مختارة، منسّقة من أول مراجعة وحتى التعافي — بدءًا بتجميل الأنف في أرمينيا." },
+      journey: { title: "رحلتكم", description: "كيف تسير رحلة تجميلية خاصة مع NAIREVA فعليًا، من أول طلب وحتى عودتكم إلى الوطن." },
+      armenia: { title: "أرمينيا", description: "أرمينيا جزء من التجربة، لا مجرد مكان للعلاج — يريفان، والثقافة، وتجارب خاصة اختيارية حول التعافي." },
+      concierge: { title: "الكونسيرج", description: "كيف تنسّق NAIREVA النقل، ولوجستيات العيادة، والتواصل الشخصي، والسياحة الاختيارية حول خطتكم الطبية." },
+      journal: { title: "المجلة", description: "معلومات عملية حول تجميل الأنف، والتحضير، والتعافي، والسفر إلى أرمينيا لأغراض الجراحة التجميلية." },
+      consultation: { title: "استشارة خاصة", description: "أرسلوا المعلومات الأساسية بخصوصية. سنتواصل معكم عبر واتساب أو تيليغرام أو البريد الإلكتروني ونُحضّر حالتكم للفريق الطبي." },
+      faq: { title: "الأسئلة الشائعة", description: "إجابات عن الأسئلة الشائعة حول عملية NAIREVA، والخصوصية، والأسعار، والسفر." },
+      transformations: { title: "التحولات", description: "حالات حقيقية لمرضى قبل وبعد، تُنشَر بموافقتهم. تختلف النتائج الفردية." }
     },
     localeBanner: {
       ru: { question: "Show this site in Russian?", accept: "Show in Russian", dismiss: "Stay in English" },
@@ -1536,6 +1664,8 @@ export interface Dictionary {
     title: string;
     lead: string;
     emptyState: string;
+    byAuthor: string;
+    updated: string;
   };
   faqPage: {
     breadcrumb: string;
@@ -1618,6 +1748,19 @@ export interface Dictionary {
   };
   /** Keyed by the locale being suggested (never the current one) — only `en`'s copy is actually rendered today; see the comment on the `en.localeBanner` literal. */
   localeBanner: Record<"ru" | "es" | "ar", { question: string; accept: string; dismiss: string }>;
+  seo: {
+    siteTitle: string;
+    siteDescription: string;
+    home: { title: string; description: string };
+    procedures: { title: string; description: string };
+    journey: { title: string; description: string };
+    armenia: { title: string; description: string };
+    concierge: { title: string; description: string };
+    journal: { title: string; description: string };
+    consultation: { title: string; description: string };
+    faq: { title: string; description: string };
+    transformations: { title: string; description: string };
+  };
 }
 
 export function getDictionary(locale: Locale): Dictionary {

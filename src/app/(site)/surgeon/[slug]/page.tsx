@@ -4,16 +4,20 @@ import { getSurgeonBySlug } from "@/lib/queries";
 import { SurgeonProfile } from "@/components/surgeon/SurgeonProfile";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+import { localeUrl } from "@/lib/i18n/seo";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const surgeon = await getSurgeonBySlug(params.slug);
   if (!surgeon) return {};
+  const locale = getLocale();
   return {
     title: surgeon.seoTitle || surgeon.name,
     description: surgeon.seoDescription || surgeon.specialty,
-    alternates: { canonical: `/surgeon/${surgeon.slug}` }
+    // Same content as /surgeon (the single active surgeon) — canonicalize there
+    // rather than self, to avoid a duplicate-content signal to search engines.
+    alternates: { canonical: localeUrl(locale, "/surgeon") }
   };
 }
 

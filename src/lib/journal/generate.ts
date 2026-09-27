@@ -10,7 +10,7 @@ const LOCALIZED_ARTICLE_FIELDS = {
     title: { type: "string", description: "40-70 characters, no clickbait, no pricing claims" },
     excerpt: { type: "string", description: "1-2 sentence summary, 100-160 characters" },
     body: { type: "string", description: "600-900 word article body in Markdown (## headings, paragraphs, no H1)" },
-    seoTitle: { type: "string", description: "Under 60 characters" },
+    seoTitle: { type: "string", description: "Under 60 characters. Do not append '| NAIREVA' or '— NAIREVA' — the site template already adds the brand name." },
     seoDescription: { type: "string", description: "Under 155 characters" }
   },
   required: ["title", "excerpt", "body", "seoTitle", "seoDescription"]

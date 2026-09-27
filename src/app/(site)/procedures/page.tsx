@@ -5,14 +5,19 @@ import { getActiveProcedures } from "@/lib/queries";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { localized } from "@/lib/i18n/localized";
+import { buildAlternates } from "@/lib/i18n/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Procedures",
-  description: "Selected aesthetic procedures, coordinated from first review to recovery — beginning with rhinoplasty in Armenia.",
-  alternates: { canonical: "/procedures" }
-};
+export function generateMetadata(): Metadata {
+  const locale = getLocale();
+  const { seo } = getDictionary(locale);
+  return {
+    title: seo.procedures.title,
+    description: seo.procedures.description,
+    alternates: buildAlternates(locale, "/procedures")
+  };
+}
 
 export default async function ProceduresPage() {
   const locale = getLocale();

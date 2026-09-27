@@ -1,8 +1,8 @@
 "use client";
 
 import { useTransition } from "react";
-import { useRouter } from "next/navigation";
-import { locales, type Locale } from "@/lib/i18n/dictionaries";
+import { useRouter, usePathname } from "next/navigation";
+import { locales, defaultLocale, type Locale } from "@/lib/i18n/dictionaries";
 import { LOCALE_COOKIE } from "@/lib/i18n/cookie";
 
 const LOCALE_LABELS: Record<Locale, string> = {
@@ -12,13 +12,23 @@ const LOCALE_LABELS: Record<Locale, string> = {
   ar: "AR"
 };
 
+/** Strips a leading /ru, /es or /ar prefix (see middleware.ts) to recover the unprefixed path. */
+function stripLocalePrefix(pathname: string): string {
+  const match = pathname.match(/^\/(ru|es|ar)(\/.*)?$/);
+  if (!match) return pathname;
+  return match[2] || "/";
+}
+
 export function LocaleSwitcher({ current, label = "Language" }: { current: Locale; label?: string }) {
   const router = useRouter();
+  const pathname = usePathname();
   const [pending, startTransition] = useTransition();
 
   function setLocale(locale: Locale) {
     document.cookie = `${LOCALE_COOKIE}=${locale}; path=/; max-age=${60 * 60 * 24 * 365}`;
-    startTransition(() => router.refresh());
+    const bare = stripLocalePrefix(pathname);
+    const target = locale === defaultLocale ? bare : `/${locale}${bare === "/" ? "" : bare}`;
+    startTransition(() => router.push(target));
   }
 
   return (

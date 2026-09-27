@@ -5,14 +5,19 @@ import { getActiveProcedures } from "@/lib/queries";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { localized } from "@/lib/i18n/localized";
+import { buildAlternates } from "@/lib/i18n/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Private Consultation",
-  description: "Send the basics privately. We will contact you by WhatsApp, Telegram or email and prepare your case for the medical team.",
-  alternates: { canonical: "/consultation" }
-};
+export function generateMetadata(): Metadata {
+  const locale = getLocale();
+  const { seo } = getDictionary(locale);
+  return {
+    title: seo.consultation.title,
+    description: seo.consultation.description,
+    alternates: buildAlternates(locale, "/consultation")
+  };
+}
 
 export default async function ConsultationPage() {
   const locale = getLocale();

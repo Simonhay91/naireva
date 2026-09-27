@@ -7,16 +7,19 @@ import { renderSimpleMarkdown } from "@/lib/simple-markdown";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { localized } from "@/lib/i18n/localized";
+import { buildAlternates } from "@/lib/i18n/seo";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const procedure = await getProcedureBySlug(params.slug);
   if (!procedure) return {};
+  const locale = getLocale();
   return {
     title: procedure.seoTitle || procedure.title,
     description: procedure.seoDescription || procedure.shortDescription,
-    alternates: { canonical: `/procedures/${procedure.slug}` }
+    // English + Russian only — this page's body only has *Ru translations today.
+    alternates: buildAlternates(locale, `/procedures/${procedure.slug}`, ["en", "ru"])
   };
 }
 

@@ -4,14 +4,19 @@ import { GalleryGrid } from "@/components/before-after/GalleryGrid";
 import { getPublishedBeforeAfter } from "@/lib/queries";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+import { buildAlternates } from "@/lib/i18n/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Transformations",
-  description: "Real, consented patient before-and-after cases from the surgical team. Individual outcomes vary.",
-  alternates: { canonical: "/transformations" }
-};
+export function generateMetadata(): Metadata {
+  const locale = getLocale();
+  const { seo } = getDictionary(locale);
+  return {
+    title: seo.transformations.title,
+    description: seo.transformations.description,
+    alternates: buildAlternates(locale, "/transformations")
+  };
+}
 
 export default async function TransformationsPage() {
   const locale = getLocale();

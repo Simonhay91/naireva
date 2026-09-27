@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+import { buildAlternates } from "@/lib/i18n/seo";
 import { getActiveSurgeon, getPublishedBeforeAfter, getPublishedPosts } from "@/lib/queries";
 import { Hero } from "@/components/home/Hero";
 import { TrustBar } from "@/components/home/TrustBar";
@@ -16,10 +17,15 @@ import { FinalCta } from "@/components/home/FinalCta";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Private Aesthetic Journeys in Armenia",
-  alternates: { canonical: "/" }
-};
+export function generateMetadata(): Metadata {
+  const locale = getLocale();
+  const { seo } = getDictionary(locale);
+  return {
+    title: seo.home.title,
+    description: seo.home.description,
+    alternates: buildAlternates(locale, "/")
+  };
+}
 
 export default async function HomePage() {
   const locale = getLocale();

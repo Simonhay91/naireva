@@ -3,14 +3,19 @@ import Link from "next/link";
 import { PageHero } from "@/components/ui/PageHero";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+import { buildAlternates } from "@/lib/i18n/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Your Journey",
-  description: "How a private aesthetic journey with NAIREVA actually works, from first request to your return home.",
-  alternates: { canonical: "/journey" }
-};
+export function generateMetadata(): Metadata {
+  const locale = getLocale();
+  const { seo } = getDictionary(locale);
+  return {
+    title: seo.journey.title,
+    description: seo.journey.description,
+    alternates: buildAlternates(locale, "/journey")
+  };
+}
 
 export default function JourneyPage() {
   const locale = getLocale();

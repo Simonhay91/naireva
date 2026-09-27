@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { Playfair_Display, DM_Sans, Cairo } from "next/font/google";
 import { getLocale } from "@/lib/i18n/get-locale";
-import { defaultLocale, isRtl } from "@/lib/i18n/dictionaries";
+import { defaultLocale, isRtl, getDictionary } from "@/lib/i18n/dictionaries";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -30,26 +30,30 @@ const cairo = Cairo({
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://naireva.com";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: {
-    default: "NAIREVA — Private Aesthetic Journeys in Armenia",
-    template: "%s — NAIREVA"
-  },
-  description:
-    "A private, concierge-led path to aesthetic surgery in Armenia — selected surgical expertise, direct surgeon video consultation and a fully coordinated journey.",
-  openGraph: {
-    type: "website",
-    siteName: "NAIREVA",
-    title: "NAIREVA — Private Aesthetic Journeys in Armenia",
-    description:
-      "A private, concierge-led path to aesthetic surgery in Armenia — selected surgical expertise, direct surgeon video consultation and a fully coordinated journey."
-  },
-  robots: {
-    index: true,
-    follow: true
-  }
-};
+export function generateMetadata(): Metadata {
+  const isAdmin = headers().get("x-pathname")?.startsWith("/admin") ?? false;
+  const locale = isAdmin ? defaultLocale : getLocale();
+  const { seo } = getDictionary(locale);
+
+  return {
+    metadataBase: new URL(siteUrl),
+    title: {
+      default: seo.siteTitle,
+      template: "%s — NAIREVA"
+    },
+    description: seo.siteDescription,
+    openGraph: {
+      type: "website",
+      siteName: "NAIREVA",
+      title: seo.siteTitle,
+      description: seo.siteDescription
+    },
+    robots: {
+      index: true,
+      follow: true
+    }
+  };
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   // /admin stays English/LTR regardless of the visitor's public-site locale cookie.

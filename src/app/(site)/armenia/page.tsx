@@ -4,14 +4,19 @@ import { Reveal } from "@/components/ui/Reveal";
 import { ArmeniaTeaser } from "@/components/home/ArmeniaTeaser";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+import { buildAlternates } from "@/lib/i18n/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Armenia",
-  description: "Armenia is part of the experience, not just the treatment location — Yerevan, culture and optional private experiences around recovery.",
-  alternates: { canonical: "/armenia" }
-};
+export function generateMetadata(): Metadata {
+  const locale = getLocale();
+  const { seo } = getDictionary(locale);
+  return {
+    title: seo.armenia.title,
+    description: seo.armenia.description,
+    alternates: buildAlternates(locale, "/armenia")
+  };
+}
 
 export default function ArmeniaPage() {
   const locale = getLocale();

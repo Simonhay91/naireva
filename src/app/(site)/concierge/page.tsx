@@ -4,14 +4,19 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+import { buildAlternates } from "@/lib/i18n/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Concierge",
-  description: "How NAIREVA coordinates transfer, clinic logistics, personal contact and optional tourism around your medical plan.",
-  alternates: { canonical: "/concierge" }
-};
+export function generateMetadata(): Metadata {
+  const locale = getLocale();
+  const { seo } = getDictionary(locale);
+  return {
+    title: seo.concierge.title,
+    description: seo.concierge.description,
+    alternates: buildAlternates(locale, "/concierge")
+  };
+}
 
 export default function ConciergePage() {
   const locale = getLocale();

@@ -49,17 +49,13 @@ async function main() {
     specialty: "Plastic & Maxillofacial Surgeon",
     specialtyRu: "Пластический и челюстно-лицевой хирург",
     biography:
-      "Dr. Hayk Bakhshyan practices plastic and maxillofacial surgery in Yerevan, with 15 years of experience and a focus on aesthetic rhinoplasty.\n\n" +
-      "[PLACEHOLDER — remaining biography details still need verification. Do not publish further claims about procedure counts or outcomes without medical/legal sign-off.]",
+      "Dr. Hayk Bakhshyan practices plastic and maxillofacial surgery in Yerevan, with 15 years of experience and a focus on aesthetic rhinoplasty.",
     biographyRu:
-      "Д-р Айк Бахшян практикует пластическую и челюстно-лицевую хирургию в Ереване, имеет 15 лет опыта и специализируется на эстетической ринопластике.\n\n" +
-      "[ЗАПОЛНИТЕ — остальные детали биографии всё ещё требуют проверки. Не публикуйте данные о количестве операций или результатах без медицинского и юридического согласования.]",
-    education: ["[PLACEHOLDER — verified medical degree and institution]"],
-    experience:
-      "[PLACEHOLDER — approach and philosophy, to be provided by the surgeon and reviewed before publishing.]",
-    experienceRu:
-      "[ЗАПОЛНИТЕ — подход и философия хирурга, должны быть предоставлены и проверены перед публикацией.]",
-    certifications: ["[PLACEHOLDER — verified board certifications]"],
+      "Д-р Айк Бахшян практикует пластическую и челюстно-лицевую хирургию в Ереване, имеет 15 лет опыта и специализируется на эстетической ринопластике.",
+    education: [],
+    experience: null,
+    experienceRu: null,
+    certifications: [],
     clinicAffiliation: "Beglaryan Medical Centre",
     clinicAffiliationRu: "Медицинский центр Beglaryan",
     languages: ["Armenian", "Russian", "English"],
@@ -128,8 +124,8 @@ async function main() {
     recoveryOverviewRu:
       "Сроки восстановления определяет хирург, и они индивидуальны. Как правило, большинство пациентов планируют более длительное первичное пребывание в Ереване перед вылетом домой, с финальным очным осмотром перед отъездом — это всегда подтверждает хирург, а не предполагается заранее.",
     isActive: true,
-    seoTitle: "Rhinoplasty in Armenia — Private Surgical Journey | NAIREVA",
-    seoTitleRu: "Ринопластика в Армении — частное хирургическое путешествие | NAIREVA",
+    seoTitle: "Rhinoplasty in Armenia — Private Surgical Journey",
+    seoTitleRu: "Ринопластика в Армении — частное хирургическое путешествие",
     seoDescription:
       "Aesthetic rhinoplasty in Yerevan with direct surgeon video consultation, private case review and a fully coordinated journey. No public pricing.",
     seoDescriptionRu:

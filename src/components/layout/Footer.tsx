@@ -21,6 +21,7 @@ export function Footer({ dict }: { dict: Dictionary }) {
         <h4 className="mb-3 font-semibold text-ink">{dict.footer.contact}</h4>
         <div className="flex flex-col gap-2 text-sm">
           <Link href="/consultation">{dict.nav.consultation}</Link>
+          <a href="mailto:team@naireva.com">team@naireva.com</a>
           <Link href="/journal">{dict.nav.journal}</Link>
           <Link href="/faq">{dict.nav.faq}</Link>
           <Link href="/privacy">{dict.footer.privacy}</Link>
