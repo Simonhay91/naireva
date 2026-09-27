@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import type { BlogCategory } from "@prisma/client";
+import { getTopSearchQueries, type TopQuery } from "@/lib/journal/search-console";
 
 const CATEGORIES: BlogCategory[] = ["RHINOPLASTY", "RECOVERY", "ARMENIA", "CONSULTATION", "TRAVEL", "AESTHETIC_SURGERY"];
 
@@ -60,15 +61,23 @@ Brand facts you must respect:
 
 Write a genuinely useful, specific article — not generic filler. Then translate it faithfully into Russian, Spanish and Arabic (proper native-quality translation, not machine-literal) using the same structure. Call the publish_journal_article tool with the complete result.`;
 
-function buildUserPrompt(recentTitles: string[], recentCategories: string[]) {
+function buildUserPrompt(recentTitles: string[], recentCategories: string[], topQueries: TopQuery[]) {
   const avoid =
     recentTitles.length > 0
       ? `Recently published articles (avoid repeating these topics or titles):\n${recentTitles.map((t) => `- ${t}`).join("\n")}\n\nRecent categories used, prefer a different one if it fits naturally: ${recentCategories.join(", ")}`
       : "This is the first article — pick any topic from the allowed list.";
-  return `Write today's new journal article.\n\n${avoid}`;
+
+  const seo =
+    topQueries.length > 0
+      ? `Real Google Search Console data for naireva.com (last 28 days) — actual queries people are searching, with impressions and average ranking position:\n${topQueries
+          .map((q) => `- "${q.query}" — ${q.impressions} impressions, position ${q.position.toFixed(1)}, ${q.clicks} clicks`)
+          .join("\n")}\n\nPrioritize a topic that closely matches one of these real queries, especially ones with high impressions but a weak position (page 2+, i.e. position > 10) — that is a genuine content gap worth targeting. Do not force it if none fit the allowed topic list naturally.`
+      : "No Search Console data available yet (new site, or integration not configured) — pick any topic from the allowed list.";
+
+  return `Write today's new journal article.\n\n${avoid}\n\n${seo}`;
 }
 
-async function callClaude(recentTitles: string[], recentCategories: string[]): Promise<GeneratedArticle> {
+async function callClaude(recentTitles: string[], recentCategories: string[], topQueries: TopQuery[]): Promise<GeneratedArticle> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) throw new Error("ANTHROPIC_API_KEY is not set.");
 
@@ -83,7 +92,7 @@ async function callClaude(recentTitles: string[], recentCategories: string[]): P
       model: "claude-sonnet-5",
       max_tokens: 8000,
       system: SYSTEM_PROMPT,
-      messages: [{ role: "user", content: buildUserPrompt(recentTitles, recentCategories) }],
+      messages: [{ role: "user", content: buildUserPrompt(recentTitles, recentCategories, topQueries) }],
       tools: [ARTICLE_TOOL],
       tool_choice: { type: "tool", name: "publish_journal_article" }
     })
@@ -113,15 +122,19 @@ async function uniqueSlug(base: string): Promise<string> {
 
 /** Generates one new journal article via Claude and publishes it immediately. */
 export async function generateAndPublishJournalPost() {
-  const recent = await db.blogPost.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 15,
-    select: { title: true, category: true }
-  });
+  const [recent, topQueries] = await Promise.all([
+    db.blogPost.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 15,
+      select: { title: true, category: true }
+    }),
+    getTopSearchQueries()
+  ]);
 
   const article = await callClaude(
     recent.map((p) => p.title),
-    Array.from(new Set(recent.slice(0, 5).map((p) => p.category)))
+    Array.from(new Set(recent.slice(0, 5).map((p) => p.category))),
+    topQueries
   );
 
   const slug = await uniqueSlug(article.slug);
