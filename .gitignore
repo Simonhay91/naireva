@@ -1,0 +1,43 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# local uploads (dev storage driver)
+/storage/uploads/*
+!/storage/uploads/.gitkeep
+
+# prisma
+/prisma/dev.db
+
+# raw/unpublished source photos — includes real patient images excluded from
+# the public site for consent reasons; never publish this directory
+/_incoming-media/
+
+# pre-Next.js static prototype — not part of the deployed app
+/_legacy-static/

@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f4efe8;
+  color: #171717;
+}
+
+/* Arabic has no glyphs in Playfair Display / DM Sans — swap both the
+   heading and body font variables for the whole document when RTL. */
+[dir="rtl"] {
+  --font-display: var(--font-arabic);
+  --font-body: var(--font-arabic);
+}
+
+@layer utilities {
+  .kicker {
+    @apply text-[11px] font-semibold uppercase tracking-[0.22em] text-wine;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center whitespace-nowrap rounded-full border px-6 py-3.5 text-sm font-semibold transition-all duration-300;
+  }
+  .btn-wine {
+    @apply btn border-wine bg-wine text-white hover:bg-wine-dark hover:border-wine-dark;
+  }
+  .btn-dark {
+    @apply btn border-ink bg-ink text-white hover:bg-black;
+  }
+  .btn-ghost {
+    @apply btn border-white/45 text-white hover:bg-white/10;
+  }
+  .btn-outline {
+    @apply btn border-ink text-ink hover:bg-ink hover:text-white;
+  }
+
+  .section {
+    @apply px-6 py-20 sm:px-10 md:py-28 lg:px-[7vw];
+  }
+
+  .wrap {
+    @apply mx-auto max-w-wrap;
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+}
+.reveal.is-visible {
+  animation: reveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+}
+
+/* Before / after compare slider */
+.compare-slider {
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+.compare-slider img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.compare-slider .after-wrap {
+  position: absolute;
+  inset: 0 auto 0 0;
+  overflow: hidden;
+}
+.compare-slider .after-wrap img {
+  width: var(--compare-width);
+  max-width: none;
+}

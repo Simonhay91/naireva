@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: naireva
+      POSTGRES_PASSWORD: naireva
+      POSTGRES_DB: naireva
+    ports:
+      - "5432:5432"
+    volumes:
+      - naireva_pgdata:/var/lib/postgresql/data
+
+volumes:
+  naireva_pgdata:

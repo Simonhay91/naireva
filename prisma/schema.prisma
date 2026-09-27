@@ -1,0 +1,539 @@
+// NAIREVA — Prisma schema
+// Target: PostgreSQL. See README.md for local setup (Docker Compose) and
+// hosted options (Neon / Supabase / Railway).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Auth / internal team
+// ---------------------------------------------------------------------------
+
+enum Role {
+  ADMIN
+  COORDINATOR
+  MEDICAL_TEAM
+  SURGEON
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(COORDINATOR)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  assignedLeads   Lead[]           @relation("AssignedCoordinator")
+  caseNotes       CaseNote[]
+  activityLogs    ActivityLog[]
+  coordinatedTrip Trip[]
+  uploadedPhotos  CasePhoto[]
+  authoredPosts   BlogPost[]
+
+  @@map("users")
+}
+
+// ---------------------------------------------------------------------------
+// Leads / CRM
+// ---------------------------------------------------------------------------
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  MEDICAL_REVIEW
+  SURGEON_REVIEWED
+  VIDEO_CALL_PENDING
+  VIDEO_CALL_DONE
+  OFFER_SENT
+  CONFIRMED
+  TRAVEL_PLANNED
+  ARRIVED
+  SURGERY_DONE
+  RECOVERY
+  COMPLETED
+  LOST
+}
+
+enum PreferredContact {
+  EMAIL
+  PHONE
+  WHATSAPP
+  TELEGRAM
+}
+
+model Lead {
+  id        String @id @default(cuid())
+  firstName String
+  lastName  String
+  country   String
+  city      String?
+  age       Int?
+
+  email    String
+  phone    String?
+  whatsapp String?
+  telegram String?
+
+  preferredContact PreferredContact @default(EMAIL)
+
+  status LeadStatus @default(NEW)
+
+  // Attribution
+  source      String? // e.g. "website", "ai_consultant", "referral"
+  aiAssisted  Boolean  @default(false)
+  referrer    String?
+  landingPage String?
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+  utmTerm     String?
+  utmContent  String?
+  language    String   @default("en")
+  country_ip  String? // best-effort geo hint at submission time, never authoritative
+
+  consentAccepted Boolean @default(false)
+
+  assignedToId String?
+  assignedTo   User?   @relation("AssignedCoordinator", fields: [assignedToId], references: [id])
+
+  cases         MedicalCase[]
+  activityLogs  ActivityLog[]
+  conversations Conversation[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([source])
+  @@index([createdAt])
+  @@map("leads")
+}
+
+// ---------------------------------------------------------------------------
+// Medical cases
+// ---------------------------------------------------------------------------
+
+enum CaseStatus {
+  NEW
+  MEDICAL_REVIEW
+  SURGEON_REVIEW
+  AWAITING_VIDEO_CALL
+  PLAN_CONFIRMED
+  TRAVEL_PLANNED
+  IN_TREATMENT
+  RECOVERY
+  COMPLETED
+  CLOSED
+}
+
+model MedicalCase {
+  id        String @id @default(cuid())
+  leadId    String
+  lead      Lead   @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  procedureId String?
+  procedure   Procedure? @relation(fields: [procedureId], references: [id])
+
+  surgeonId String?
+  surgeon   Surgeon? @relation(fields: [surgeonId], references: [id])
+
+  goals              String  @db.Text
+  previousProcedures String? @db.Text
+  medicalNotes       String? @db.Text
+  travelWindow       String?
+  budgetRange        String?
+
+  status CaseStatus @default(NEW)
+
+  photos             CasePhoto[]
+  notes              CaseNote[]
+  activityLogs       ActivityLog[]
+  videoConsultations VideoConsultation[]
+  trips              Trip[]
+  intakeSummaries    IntakeSummary[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@map("medical_cases")
+}
+
+enum PhotoAngle {
+  FRONTAL
+  PROFILE_LEFT
+  PROFILE_RIGHT
+  THREE_QUARTER
+  OTHER
+}
+
+model CasePhoto {
+  id     String @id @default(cuid())
+  caseId String
+  case   MedicalCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  storageKey String // private object-storage key, never a public URL
+  angle      PhotoAngle @default(OTHER)
+  isPrivate  Boolean    @default(true)
+
+  uploadedByUserId String?
+  uploadedByUser   User?   @relation(fields: [uploadedByUserId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@map("case_photos")
+}
+
+model CaseNote {
+  id       String @id @default(cuid())
+  caseId   String
+  case     MedicalCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  authorId String
+  author   User        @relation(fields: [authorId], references: [id])
+  note     String      @db.Text
+
+  createdAt DateTime @default(now())
+
+  @@map("case_notes")
+}
+
+model ActivityLog {
+  id     String  @id @default(cuid())
+  leadId String?
+  lead   Lead?   @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  caseId String?
+  case   MedicalCase? @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  type    String // e.g. "STATUS_CHANGE", "NOTE_ADDED", "LEAD_CREATED", "VIDEO_SCHEDULED"
+  message String @db.Text
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([leadId])
+  @@index([caseId])
+  @@map("activity_logs")
+}
+
+enum VideoConsultationStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+  RESCHEDULED
+  NO_SHOW
+}
+
+model VideoConsultation {
+  id     String @id @default(cuid())
+  caseId String
+  case   MedicalCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  surgeonId String?
+  surgeon   Surgeon? @relation(fields: [surgeonId], references: [id])
+
+  scheduledAt DateTime
+  meetingUrl  String?
+  status      VideoConsultationStatus @default(SCHEDULED)
+  notes       String?                 @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("video_consultations")
+}
+
+model Trip {
+  id     String @id @default(cuid())
+  caseId String
+  case   MedicalCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  arrivalDate     DateTime?
+  departureDate   DateTime?
+  flightInfo      String?
+  airportTransfer Boolean   @default(false)
+  clinicTransfer  Boolean   @default(false)
+  hotelNotes      String?   @db.Text
+  tourNotes       String?   @db.Text
+
+  coordinatorId String?
+  coordinator   User?   @relation(fields: [coordinatorId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("trips")
+}
+
+// ---------------------------------------------------------------------------
+// Public content: procedures, surgeons, before/after, journal, FAQ
+// ---------------------------------------------------------------------------
+
+model Procedure {
+  id               String  @id @default(cuid())
+  slug             String  @unique
+  title            String
+  shortDescription String
+  content          String  @db.Text
+  heroImage        String?
+  gallery          Json    @default("[]") // string[] of image URLs
+  recoveryOverview String? @db.Text
+  seoTitle         String?
+  seoDescription   String?
+  isActive         Boolean @default(true)
+
+  // Russian translations — nullable, falls back to the English field above
+  // when empty. See src/lib/i18n/localized.ts for the fallback helper.
+  titleRu            String?
+  shortDescriptionRu String?
+  contentRu          String? @db.Text
+  recoveryOverviewRu String? @db.Text
+  seoTitleRu         String?
+  seoDescriptionRu   String?
+
+  cases          MedicalCase[]
+  faqs           FAQ[]
+  surgeons       Surgeon[]         @relation("SurgeonProcedures")
+  beforeAfter    BeforeAfterCase[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("procedures")
+}
+
+model Surgeon {
+  id                String  @id @default(cuid())
+  slug              String  @unique
+  name              String
+  specialty         String
+  biography         String  @db.Text
+  education         Json    @default("[]") // { degree, institution, year }[]
+  experience        String? @db.Text
+  certifications    Json    @default("[]") // string[]
+  clinicAffiliation String?
+  languages         Json    @default("[]") // string[]
+  instagramUrl      String? // intentionally not surfaced on public pages
+  heroImage         String?
+  isActive          Boolean @default(true)
+  seoTitle          String?
+  seoDescription    String?
+
+  // Russian translations — nullable, falls back to the English field above
+  specialtyRu         String?
+  biographyRu         String? @db.Text
+  experienceRu        String? @db.Text
+  clinicAffiliationRu String?
+  seoTitleRu          String?
+  seoDescriptionRu    String?
+
+  procedures  Procedure[]         @relation("SurgeonProcedures")
+  images      SurgeonImage[]
+  videos      SurgeonVideo[]
+  cases       MedicalCase[]
+  videoCalls  VideoConsultation[]
+  beforeAfter BeforeAfterCase[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("surgeons")
+}
+
+model SurgeonImage {
+  id        String  @id @default(cuid())
+  surgeonId String
+  surgeon   Surgeon @relation(fields: [surgeonId], references: [id], onDelete: Cascade)
+  url       String
+  caption   String?
+  sortOrder Int     @default(0)
+
+  @@map("surgeon_images")
+}
+
+model SurgeonVideo {
+  id        String  @id @default(cuid())
+  surgeonId String
+  surgeon   Surgeon @relation(fields: [surgeonId], references: [id], onDelete: Cascade)
+  url       String
+  title     String?
+  sortOrder Int     @default(0)
+
+  @@map("surgeon_videos")
+}
+
+enum ConsentStatus {
+  PENDING
+  GRANTED
+  REVOKED
+}
+
+enum PublishStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model BeforeAfterCase {
+  id            String  @id @default(cuid())
+  procedureId   String?
+  procedure     Procedure? @relation(fields: [procedureId], references: [id])
+  surgeonId     String?
+  surgeon       Surgeon?   @relation(fields: [surgeonId], references: [id])
+  patientAgeRange String? // e.g. "25–34" — never an exact age or name
+  caseNotes     String? @db.Text
+  beforeImageUrl String
+  afterImageUrl  String
+  angle          PhotoAngle    @default(FRONTAL)
+  consentStatus  ConsentStatus @default(PENDING)
+  publishStatus  PublishStatus @default(DRAFT)
+
+  caseNotesRu String? @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("before_after_cases")
+}
+
+enum BlogCategory {
+  RHINOPLASTY
+  RECOVERY
+  ARMENIA
+  CONSULTATION
+  TRAVEL
+  AESTHETIC_SURGERY
+}
+
+model BlogPost {
+  id             String        @id @default(cuid())
+  title          String
+  slug           String        @unique
+  excerpt        String
+  heroImage      String?
+  category       BlogCategory
+  body           String        @db.Text
+  authorId       String?
+  author         User?         @relation(fields: [authorId], references: [id])
+  status         PublishStatus @default(DRAFT)
+  publishedAt    DateTime?
+  seoTitle       String?
+  seoDescription String?
+
+  titleRu          String?
+  excerptRu        String?
+  bodyRu           String? @db.Text
+  seoTitleRu       String?
+  seoDescriptionRu String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([category])
+  @@map("blog_posts")
+}
+
+model FAQ {
+  id          String  @id @default(cuid())
+  question    String
+  answer      String  @db.Text
+  category    String  @default("general")
+  procedureId String?
+  procedure   Procedure? @relation(fields: [procedureId], references: [id])
+  sortOrder   Int     @default(0)
+  isActive    Boolean @default(true)
+
+  questionRu String?
+  answerRu   String? @db.Text
+
+  @@map("faqs")
+}
+
+model PageContent {
+  id             String   @id @default(cuid())
+  key            String // e.g. "armenia", "concierge", "journey"
+  locale         String   @default("en")
+  title          String?
+  body           Json     @default("{}")
+  seoTitle       String?
+  seoDescription String?
+  updatedAt      DateTime @updatedAt
+
+  @@unique([key, locale])
+  @@map("page_content")
+}
+
+// ---------------------------------------------------------------------------
+// AI consultant — future scope. Tables exist now so a later intake bot can
+// read/write against a stable boundary without a schema migration.
+// See src/lib/ai/README.md for the intended API boundary.
+// ---------------------------------------------------------------------------
+
+enum ConversationStatus {
+  ACTIVE
+  COMPLETED
+  HANDED_OFF
+  ABANDONED
+}
+
+model Conversation {
+  id       String             @id @default(cuid())
+  leadId   String?
+  lead     Lead?              @relation(fields: [leadId], references: [id])
+  channel  String             @default("web_widget")
+  locale   String             @default("en")
+  status   ConversationStatus @default(ACTIVE)
+
+  messages ConversationMessage[]
+  summaries IntakeSummary[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("conversations")
+}
+
+enum MessageRole {
+  USER
+  ASSISTANT
+  SYSTEM
+}
+
+model ConversationMessage {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  role           MessageRole
+  content        String       @db.Text
+
+  createdAt DateTime @default(now())
+
+  @@map("conversation_messages")
+}
+
+model IntakeSummary {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  caseId         String?
+  case           MedicalCase? @relation(fields: [caseId], references: [id])
+
+  structuredData Json // candidate Lead/MedicalCase fields extracted from the conversation
+  missingFields  Json @default("[]") // fields the AI could not collect and a human must ask
+
+  createdAt DateTime @default(now())
+
+  @@map("intake_summaries")
+}
