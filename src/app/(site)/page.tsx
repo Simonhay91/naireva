@@ -9,6 +9,7 @@ import { TransformationsPreview } from "@/components/home/TransformationsPreview
 import { SurgeonPreview } from "@/components/home/SurgeonPreview";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { ConciergeTeaser } from "@/components/home/ConciergeTeaser";
+import { WhyChooseNaireva } from "@/components/home/WhyChooseNaireva";
 import { ArmeniaTeaser } from "@/components/home/ArmeniaTeaser";
 import { JournalPreview } from "@/components/home/JournalPreview";
 import { FinalCta } from "@/components/home/FinalCta";
@@ -56,6 +57,7 @@ export default async function HomePage() {
       <ConciergeTeaser dict={dict} />
       <JournalPreview posts={posts} locale={locale} dict={dict} />
       <ArmeniaTeaser dict={dict} />
+      <WhyChooseNaireva dict={dict} />
       <FinalCta dict={dict} />
     </>
   );

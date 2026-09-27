@@ -118,6 +118,17 @@ export const dictionaries: Record<Locale, Dictionary> = {
         leadTemplate:
           "Before final confirmation, NAIREVA arranges a video consultation so you can discuss your case, expectations and the proposed plan directly with {name}.",
         ctaTemplate: "Meet {name}"
+      },
+      whyChoose: {
+        kicker: "Why patients choose NAIREVA",
+        title: "Built around one case at a time.",
+        lead: "No sales team, no automated promises — every decision here is made by the people actually reviewing your case.",
+        items: [
+          { title: "Selected surgical expertise", body: "Every case is reviewed personally by a surgeon chosen for aesthetic and reconstructive precision, not assigned by availability." },
+          { title: "Direct surgeon video consultation", body: "Before any confirmation, you speak with the surgeon directly about your case, expectations and the proposed plan." },
+          { title: "Personal coordinator", body: "One point of contact manages your case, travel and communication from first review through your return home." },
+          { title: "Discreet, private process", body: "No public pricing, no public case sharing. Your case and photos are handled privately, with consent required for anything shared publicly." }
+        ]
       }
     },
     common: {
@@ -446,6 +457,17 @@ export const dictionaries: Record<Locale, Dictionary> = {
         leadTemplate:
           "Перед окончательным подтверждением NAIREVA организует видеоконсультацию, чтобы вы могли обсудить свой случай, ожидания и предложенный план напрямую с {name}.",
         ctaTemplate: "Познакомиться с {name}"
+      },
+      whyChoose: {
+        kicker: "Почему пациенты выбирают NAIREVA",
+        title: "Каждый случай рассматривается индивидуально.",
+        lead: "Без отдела продаж и автоматических обещаний — каждое решение принимают те, кто действительно рассматривает ваш случай.",
+        items: [
+          { title: "Отобранная хирургическая экспертиза", body: "Каждый случай лично рассматривает хирург, выбранный за эстетическую и реконструктивную точность, а не по принципу доступности." },
+          { title: "Прямая видеоконсультация с хирургом", body: "Перед любым подтверждением вы напрямую обсуждаете свой случай, ожидания и предложенный план с хирургом." },
+          { title: "Личный координатор", body: "Один контакт сопровождает ваш случай, поездку и общение — от первого рассмотрения до возвращения домой." },
+          { title: "Приватный, конфиденциальный процесс", body: "Без публичных цен и публичного размещения случаев. Ваш случай и фотографии обрабатываются конфиденциально, с согласием на любую публикацию." }
+        ]
       }
     },
     common: {
@@ -769,6 +791,17 @@ export const dictionaries: Record<Locale, Dictionary> = {
         leadTemplate:
           "Antes de la confirmación final, NAIREVA organiza una videoconsulta para que pueda hablar de su caso, sus expectativas y el plan propuesto directamente con {name}.",
         ctaTemplate: "Conocer a {name}"
+      },
+      whyChoose: {
+        kicker: "Por qué los pacientes eligen NAIREVA",
+        title: "Cada caso se atiende de forma individual.",
+        lead: "Sin equipo de ventas ni promesas automatizadas: cada decisión la toman quienes realmente revisan su caso.",
+        items: [
+          { title: "Experiencia quirúrgica seleccionada", body: "Cada caso es revisado personalmente por un cirujano elegido por su precisión estética y reconstructiva, no asignado por disponibilidad." },
+          { title: "Videoconsulta directa con el cirujano", body: "Antes de cualquier confirmación, usted habla directamente con el cirujano sobre su caso, expectativas y el plan propuesto." },
+          { title: "Coordinador personal", body: "Un único punto de contacto gestiona su caso, viaje y comunicación desde la primera revisión hasta su regreso a casa." },
+          { title: "Proceso discreto y privado", body: "Sin precios públicos ni difusión pública de casos. Su caso y sus fotos se gestionan de forma privada, con consentimiento para cualquier publicación." }
+        ]
       }
     },
     common: {
@@ -1092,6 +1125,17 @@ export const dictionaries: Record<Locale, Dictionary> = {
         leadTemplate:
           "قبل التأكيد النهائي، تنظّم NAIREVA استشارة فيديو لتتمكنوا من مناقشة حالتكم وتوقعاتكم والخطة المقترحة مباشرة مع {name}.",
         ctaTemplate: "تعرّفوا على {name}"
+      },
+      whyChoose: {
+        kicker: "لماذا يختار المرضى NAIREVA",
+        title: "كل حالة تُعامَل بشكل فردي.",
+        lead: "بلا فريق مبيعات ولا وعود آلية — كل قرار يتخذه من يراجع حالتكم فعليًا.",
+        items: [
+          { title: "خبرة جراحية مختارة", body: "تتم مراجعة كل حالة شخصيًا من قِبل جراح تم اختياره لدقته الجمالية والترميمية، وليس بحسب التوفر." },
+          { title: "استشارة فيديو مباشرة مع الجراح", body: "قبل أي تأكيد، تتحدثون مباشرة مع الجراح حول حالتكم وتوقعاتكم والخطة المقترحة." },
+          { title: "منسّق شخصي", body: "جهة تواصل واحدة تتابع حالتكم وسفركم وتواصلكم من المراجعة الأولى وحتى عودتكم." },
+          { title: "عملية خاصة وسرية", body: "بلا أسعار علنية ولا نشر علني للحالات. تُعالَج حالتكم وصوركم بسرية، مع الحاجة لموافقة لأي نشر." }
+        ]
       }
     },
     common: {
@@ -1382,6 +1426,7 @@ export interface Dictionary {
     finalCta: { kicker: string; title: string; lead: string; cta: string };
     transformationsPreview: { kicker: string; title: string; cta: string; disclaimer: string };
     surgeonPreview: { kicker: string; title: string; leadTemplate: string; ctaTemplate: string };
+    whyChoose: { kicker: string; title: string; lead: string; items: { title: string; body: string }[] };
   };
   common: { home: string; requestConsultation: string; menu: string; language: string };
   compareSlider: { before: string; after: string; ariaLabel: string };
