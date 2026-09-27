@@ -17,6 +17,13 @@ export function localized(locale: Locale, en: string, ru?: string | null, es?: s
   return en;
 }
 
+const INTL_LOCALES: Record<Locale, string> = { en: "en-US", ru: "ru-RU", es: "es-ES", ar: "ar-SA" };
+
+/** Maps our app Locale to an Intl-compatible tag for date/number formatting. */
+export function intlLocale(locale: Locale): string {
+  return INTL_LOCALES[locale];
+}
+
 export function localizedOrNull(
   locale: Locale,
   en?: string | null,

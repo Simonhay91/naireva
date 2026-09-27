@@ -90,6 +90,64 @@ export function JournalPostForm({ post }: { post?: BlogPost }) {
           </details>
         </Card>
 
+        <Card>
+          <details>
+            <summary className="cursor-pointer text-sm font-semibold text-ink">
+              Spanish translation (optional — falls back to English above when empty)
+            </summary>
+            <div className="mt-4 space-y-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <AdminField label="Title (ES)">
+                  <input name="titleEs" defaultValue={post?.titleEs ?? ""} className={adminInput} />
+                </AdminField>
+                <AdminField label="Excerpt (ES)">
+                  <input name="excerptEs" defaultValue={post?.excerptEs ?? ""} className={adminInput} />
+                </AdminField>
+              </div>
+              <AdminField label="Body (ES)">
+                <textarea name="bodyEs" rows={12} defaultValue={post?.bodyEs ?? ""} className={adminInput} />
+              </AdminField>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <AdminField label="SEO title (ES)">
+                  <input name="seoTitleEs" defaultValue={post?.seoTitleEs ?? ""} className={adminInput} />
+                </AdminField>
+                <AdminField label="SEO description (ES)">
+                  <input name="seoDescriptionEs" defaultValue={post?.seoDescriptionEs ?? ""} className={adminInput} />
+                </AdminField>
+              </div>
+            </div>
+          </details>
+        </Card>
+
+        <Card>
+          <details>
+            <summary className="cursor-pointer text-sm font-semibold text-ink">
+              Arabic translation (optional — falls back to English above when empty)
+            </summary>
+            <div className="mt-4 space-y-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <AdminField label="Title (AR)">
+                  <input name="titleAr" dir="rtl" defaultValue={post?.titleAr ?? ""} className={adminInput} />
+                </AdminField>
+                <AdminField label="Excerpt (AR)">
+                  <input name="excerptAr" dir="rtl" defaultValue={post?.excerptAr ?? ""} className={adminInput} />
+                </AdminField>
+              </div>
+              <AdminField label="Body (AR)">
+                <textarea name="bodyAr" dir="rtl" rows={12} defaultValue={post?.bodyAr ?? ""} className={adminInput} />
+              </AdminField>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <AdminField label="SEO title (AR)">
+                  <input name="seoTitleAr" dir="rtl" defaultValue={post?.seoTitleAr ?? ""} className={adminInput} />
+                </AdminField>
+                <AdminField label="SEO description (AR)">
+                  <input name="seoDescriptionAr" dir="rtl" defaultValue={post?.seoDescriptionAr ?? ""} className={adminInput} />
+                </AdminField>
+              </div>
+            </div>
+          </details>
+        </Card>
+
         <SubmitButton>{post ? "Save changes" : "Create post"}</SubmitButton>
       </form>
       {post && (

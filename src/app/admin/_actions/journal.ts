@@ -27,7 +27,19 @@ function fromForm(formData: FormData) {
     excerptRu: String(formData.get("excerptRu") || "").trim() || null,
     bodyRu: String(formData.get("bodyRu") || "").trim() || null,
     seoTitleRu: String(formData.get("seoTitleRu") || "").trim() || null,
-    seoDescriptionRu: String(formData.get("seoDescriptionRu") || "").trim() || null
+    seoDescriptionRu: String(formData.get("seoDescriptionRu") || "").trim() || null,
+
+    titleEs: String(formData.get("titleEs") || "").trim() || null,
+    excerptEs: String(formData.get("excerptEs") || "").trim() || null,
+    bodyEs: String(formData.get("bodyEs") || "").trim() || null,
+    seoTitleEs: String(formData.get("seoTitleEs") || "").trim() || null,
+    seoDescriptionEs: String(formData.get("seoDescriptionEs") || "").trim() || null,
+
+    titleAr: String(formData.get("titleAr") || "").trim() || null,
+    excerptAr: String(formData.get("excerptAr") || "").trim() || null,
+    bodyAr: String(formData.get("bodyAr") || "").trim() || null,
+    seoTitleAr: String(formData.get("seoTitleAr") || "").trim() || null,
+    seoDescriptionAr: String(formData.get("seoDescriptionAr") || "").trim() || null
   };
 }
 

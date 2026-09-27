@@ -1,0 +1,22 @@
+name: Daily journal post
+
+on:
+  schedule:
+    # 06:00 UTC every day
+    - cron: "0 6 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger journal generation
+        run: |
+          status=$(curl -s -o response.json -w "%{http_code}" -X POST "${{ secrets.SITE_URL }}/api/cron/journal" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}")
+          echo "HTTP status: $status"
+          cat response.json
+          if [ "$status" -ge 300 ]; then
+            echo "Journal generation failed"
+            exit 1
+          fi
