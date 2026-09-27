@@ -140,7 +140,11 @@ export function SurgeonProfile({ surgeon, locale, dict }: { surgeon: FullSurgeon
         <section className="section pt-0">
           <div className="wrap">
             <p className="kicker">{t.galleryKicker}</p>
-            <GalleryLightbox images={gallery} fallbackAlt={surgeon.name} />
+            <GalleryLightbox
+              images={gallery}
+              fallbackAlt={surgeon.name}
+              labels={{ close: t.galleryCloseLabel, prev: t.galleryPrevLabel, next: t.galleryNextLabel }}
+            />
           </div>
         </section>
       )}

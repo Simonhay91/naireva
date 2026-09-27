@@ -186,7 +186,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
       languagesKicker: "Languages",
       proceduresKicker: "Procedures",
       galleryKicker: "The clinic and team",
-      teamPhotoAlt: "Dr. Bakhshyan with the surgical team"
+      teamPhotoAlt: "Dr. Bakhshyan with the surgical team",
+      galleryCloseLabel: "Close",
+      galleryPrevLabel: "Previous image",
+      galleryNextLabel: "Next image"
     },
     transformations: {
       breadcrumb: "Transformations",
@@ -389,9 +392,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
       subhead:
         "Деликатный и личный путь к эстетической хирургии в Ереване — от первого разговора до восстановления и возвращения домой.",
       ctaPrimary: "Частная консультация",
-      ctaSecondary: "Узнать о процессе",
+      ctaSecondary: "Узнать о вашем пути",
       trust: [
-        "Отобранная хирургическая экспертиза",
+        "Отобранное хирургическое мастерство",
         "Видеоконсультация напрямую с хирургом",
         "Личный координатор",
         "Деликатная коммуникация"
@@ -400,7 +403,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         kicker: "NAIREVA",
         titleLine1: "Не каталог клиник.",
         titleLine2: "Частный эстетический консьерж.",
-        lead: "Мы готовим случай, связываем вас с отобранной хирургической экспертизой, координируем медицинское путешествие и делаем пребывание в Армении продуманным, а не клиническим."
+        lead: "Мы готовим случай, связываем вас с отобранным хирургическим мастерством, координируем медицинское путешествие и делаем пребывание в Армении продуманным, а не клиническим."
       },
       features: {
         procedures: { kicker: "ПРОЦЕДУРЫ", title: "Ринопластика", body: "Наше первое направление — с прямым рассмотрением случая хирургом и персональным планированием." },
@@ -455,15 +458,15 @@ export const dictionaries: Record<Locale, Dictionary> = {
         kicker: "Прямая консультация",
         title: "Знакомство перед решением.",
         leadTemplate:
-          "Перед окончательным подтверждением NAIREVA организует видеоконсультацию, чтобы вы могли обсудить свой случай, ожидания и предложенный план напрямую с {name}.",
-        ctaTemplate: "Познакомиться с {name}"
+          "Перед окончательным подтверждением NAIREVA организует видеоконсультацию, чтобы вы могли обсудить свой случай, ожидания и предложенный план напрямую с хирургом — {name}.",
+        ctaTemplate: "Познакомиться с хирургом {name}"
       },
       whyChoose: {
         kicker: "Почему пациенты выбирают NAIREVA",
         title: "Каждый случай рассматривается индивидуально.",
         lead: "Без отдела продаж и автоматических обещаний — каждое решение принимают те, кто действительно рассматривает ваш случай.",
         items: [
-          { title: "Отобранная хирургическая экспертиза", body: "Каждый случай лично рассматривает хирург, выбранный за эстетическую и реконструктивную точность, а не по принципу доступности." },
+          { title: "Отобранное хирургическое мастерство", body: "Каждый случай лично рассматривает хирург, выбранный за эстетическую и реконструктивную точность, а не по принципу доступности." },
           { title: "Прямая видеоконсультация с хирургом", body: "Перед любым подтверждением вы напрямую обсуждаете свой случай, ожидания и предложенный план с хирургом." },
           { title: "Личный координатор", body: "Один контакт сопровождает ваш случай, поездку и общение — от первого рассмотрения до возвращения домой." },
           { title: "Приватный, конфиденциальный процесс", body: "Без публичных цен и публичного размещения случаев. Ваш случай и фотографии обрабатываются конфиденциально, с согласием на любую публикацию." }
@@ -509,7 +512,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     surgeon: {
       breadcrumb: "Хирург",
-      kicker: "Отобранная хирургическая экспертиза",
+      kicker: "Отобранное хирургическое мастерство",
       consultationKicker: "Прямая консультация",
       consultationTitle: "Знакомство перед решением.",
       consultationLead: "Перед окончательным подтверждением NAIREVA организует видеоконсультацию, чтобы вы могли обсудить свой случай, ожидания и предложенный план напрямую с хирургом.",
@@ -525,7 +528,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
       languagesKicker: "Языки",
       proceduresKicker: "Процедуры",
       galleryKicker: "Клиника и команда",
-      teamPhotoAlt: "Д-р Бахшян с хирургической командой"
+      teamPhotoAlt: "Д-р Бахшян с хирургической командой",
+      galleryCloseLabel: "Закрыть",
+      galleryPrevLabel: "Предыдущее фото",
+      galleryNextLabel: "Следующее фото"
     },
     transformations: {
       breadcrumb: "Результаты",
@@ -699,11 +705,11 @@ export const dictionaries: Record<Locale, Dictionary> = {
       procedures: "Procedimientos",
       surgeon: "Cirujano",
       transformations: "Transformaciones",
-      journey: "Su Viaje",
+      journey: "Su viaje",
       armenia: "Armenia",
       concierge: "Concierge",
       journal: "Revista",
-      consultation: "Consulta Privada",
+      consultation: "Consulta privada",
       faq: "Preguntas"
     },
     footer: {
@@ -716,14 +722,14 @@ export const dictionaries: Record<Locale, Dictionary> = {
       rights: "Todos los derechos reservados."
     },
     home: {
-      kicker: "Rinoplastia y Cirugía Estética · Armenia",
+      kicker: "Rinoplastia y cirugía estética · Armenia",
       titleLine1: "Belleza.",
       titleLine2: "Privacidad.",
       titleLine3: "Armenia.",
       subhead:
         "Un camino discreto y muy personal hacia la cirugía estética en Ereván — desde la primera conversación hasta la recuperación y el regreso a casa.",
-      ctaPrimary: "Consulta Privada",
-      ctaSecondary: "Conocer el Proceso",
+      ctaPrimary: "Consulta privada",
+      ctaSecondary: "Conocer su viaje",
       trust: [
         "Experiencia quirúrgica seleccionada",
         "Videoconsulta directa con el cirujano",
@@ -777,7 +783,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         kicker: "Comience en privado",
         title: "Empiece con una conversación privada.",
         lead: "Sin precios públicos, sin promesas médicas automatizadas — solo una revisión cuidadosa y una conversación directa con el cirujano antes de confirmar nada.",
-        cta: "Consulta Privada"
+        cta: "Consulta privada"
       },
       transformationsPreview: {
         kicker: "Transformaciones reales",
@@ -821,7 +827,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       ARMENIA: "Armenia",
       CONSULTATION: "Consulta",
       TRAVEL: "Viaje",
-      AESTHETIC_SURGERY: "Cirugía Estética"
+      AESTHETIC_SURGERY: "Cirugía estética"
     },
     procedures: {
       breadcrumb: "Procedimientos",
@@ -859,7 +865,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
       languagesKicker: "Idiomas",
       proceduresKicker: "Procedimientos",
       galleryKicker: "La clínica y el equipo",
-      teamPhotoAlt: "El Dr. Bakhshyan con el equipo quirúrgico"
+      teamPhotoAlt: "El Dr. Bakhshyan con el equipo quirúrgico",
+      galleryCloseLabel: "Cerrar",
+      galleryPrevLabel: "Imagen anterior",
+      galleryNextLabel: "Imagen siguiente"
     },
     transformations: {
       breadcrumb: "Transformaciones",
@@ -883,7 +892,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       disclaimer: "Compartido con el consentimiento del paciente. La identidad nunca se revela. Los resultados individuales varían."
     },
     journey: {
-      breadcrumb: "Su Viaje",
+      breadcrumb: "Su viaje",
       kicker: "Su viaje",
       title: "Claro antes de viajar.",
       lead: "La experiencia se organiza alrededor del plan médico, no al revés.",
@@ -967,8 +976,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
       ]
     },
     consultationPage: {
-      breadcrumb: "Consulta Privada",
-      kicker: "Consulta Privada",
+      breadcrumb: "Consulta privada",
+      kicker: "Consulta privada",
       title: "Comience con una conversación.",
       lead: "Envíe lo básico. Nos pondremos en contacto con usted de forma privada por WhatsApp, Telegram o correo electrónico y prepararemos el caso para el equipo médico.",
       formHeading: "Su solicitud",
@@ -1123,8 +1132,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
         kicker: "استشارة مباشرة",
         title: "تعرّفوا قبل أن تقرروا.",
         leadTemplate:
-          "قبل التأكيد النهائي، تنظّم NAIREVA استشارة فيديو لتتمكنوا من مناقشة حالتكم وتوقعاتكم والخطة المقترحة مباشرة مع {name}.",
-        ctaTemplate: "تعرّفوا على {name}"
+          "قبل التأكيد النهائي، تنظّم NAIREVA استشارة فيديو لتتمكنوا من مناقشة حالتكم وتوقعاتكم والخطة المقترحة مباشرة مع الجراح {name}.",
+        ctaTemplate: "تعرّفوا على الجراح {name}"
       },
       whyChoose: {
         kicker: "لماذا يختار المرضى NAIREVA",
@@ -1193,7 +1202,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
       languagesKicker: "اللغات",
       proceduresKicker: "الإجراءات",
       galleryKicker: "العيادة والفريق",
-      teamPhotoAlt: "الدكتور باكشيان مع الفريق الجراحي"
+      teamPhotoAlt: "الدكتور باكشيان مع الفريق الجراحي",
+      galleryCloseLabel: "إغلاق",
+      galleryPrevLabel: "الصورة السابقة",
+      galleryNextLabel: "الصورة التالية"
     },
     transformations: {
       breadcrumb: "التحولات",
@@ -1467,6 +1479,9 @@ export interface Dictionary {
     proceduresKicker: string;
     galleryKicker: string;
     teamPhotoAlt: string;
+    galleryCloseLabel: string;
+    galleryPrevLabel: string;
+    galleryNextLabel: string;
   };
   transformations: {
     breadcrumb: string;

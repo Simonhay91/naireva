@@ -17,7 +17,10 @@ export function localized(locale: Locale, en: string, ru?: string | null, es?: s
   return en;
 }
 
-const INTL_LOCALES: Record<Locale, string> = { en: "en-US", ru: "ru-RU", es: "es-ES", ar: "ar-SA" };
+// `-u-nu-latn` forces Western digits for ar-SA — its ICU default is Eastern
+// Arabic-Indic numerals (١٢٣), which would be the only place on the site
+// not using Western digits (prices, ages, etc. are all Western elsewhere).
+const INTL_LOCALES: Record<Locale, string> = { en: "en-US", ru: "ru-RU", es: "es-ES", ar: "ar-SA-u-nu-latn" };
 
 /** Maps our app Locale to an Intl-compatible tag for date/number formatting. */
 export function intlLocale(locale: Locale): string {

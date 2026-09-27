@@ -4,7 +4,15 @@ import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import type { SurgeonImage } from "@prisma/client";
 
-export function GalleryLightbox({ images, fallbackAlt }: { images: SurgeonImage[]; fallbackAlt: string }) {
+export function GalleryLightbox({
+  images,
+  fallbackAlt,
+  labels
+}: {
+  images: SurgeonImage[];
+  fallbackAlt: string;
+  labels: { close: string; prev: string; next: string };
+}) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const close = useCallback(() => setActiveIndex(null), []);
@@ -73,7 +81,7 @@ export function GalleryLightbox({ images, fallbackAlt }: { images: SurgeonImage[
           <button
             type="button"
             onClick={close}
-            aria-label="Close"
+            aria-label={labels.close}
             className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/30 text-white transition-colors hover:bg-white/10 sm:right-6 sm:top-6"
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="h-5 w-5">
@@ -89,7 +97,7 @@ export function GalleryLightbox({ images, fallbackAlt }: { images: SurgeonImage[
                   e.stopPropagation();
                   showPrev();
                 }}
-                aria-label="Previous image"
+                aria-label={labels.prev}
                 className="absolute left-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 text-white transition-colors hover:bg-white/10 sm:left-6"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="h-5 w-5">
@@ -102,7 +110,7 @@ export function GalleryLightbox({ images, fallbackAlt }: { images: SurgeonImage[
                   e.stopPropagation();
                   showNext();
                 }}
-                aria-label="Next image"
+                aria-label={labels.next}
                 className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 text-white transition-colors hover:bg-white/10 sm:right-6"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="h-5 w-5">
