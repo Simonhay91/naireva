@@ -9,7 +9,7 @@ const LOCALIZED_ARTICLE_FIELDS = {
   properties: {
     title: { type: "string", description: "40-70 characters, no clickbait, no pricing claims" },
     excerpt: { type: "string", description: "1-2 sentence summary, 100-160 characters" },
-    body: { type: "string", description: "600-900 word article body in Markdown (## headings, paragraphs, no H1)" },
+    body: { type: "string", description: "500-700 word article body in Markdown (## headings, paragraphs, no H1)" },
     seoTitle: { type: "string", description: "Under 60 characters. Do not append '| NAIREVA' or '— NAIREVA' — the site template already adds the brand name." },
     seoDescription: { type: "string", description: "Under 155 characters" }
   },
@@ -90,7 +90,7 @@ async function callClaude(recentTitles: string[], recentCategories: string[], to
     },
     body: JSON.stringify({
       model: "claude-sonnet-5",
-      max_tokens: 8000,
+      max_tokens: 16000,
       system: SYSTEM_PROMPT,
       messages: [{ role: "user", content: buildUserPrompt(recentTitles, recentCategories, topQueries) }],
       tools: [ARTICLE_TOOL],
@@ -104,10 +104,35 @@ async function callClaude(recentTitles: string[], recentCategories: string[], to
   }
 
   const data = await res.json();
-  const toolUse = (data.content as Array<{ type: string; input?: unknown }>)?.find((block) => block.type === "tool_use");
-  if (!toolUse?.input) throw new Error("Claude did not return a tool_use block with article content.");
 
-  return toolUse.input as GeneratedArticle;
+  if (data.stop_reason === "max_tokens") {
+    throw new Error(
+      "Claude hit max_tokens before finishing the article (likely truncated mid-generation) — no post was created. Consider raising max_tokens further or shortening the requested body length."
+    );
+  }
+
+  const toolUse = (data.content as Array<{ type: string; input?: unknown }>)?.find((block) => block.type === "tool_use");
+  if (!toolUse?.input) throw new Error(`Claude did not return a tool_use block with article content (stop_reason: ${data.stop_reason}).`);
+
+  const article = toolUse.input as GeneratedArticle;
+  assertComplete(article);
+  return article;
+}
+
+/** Fail loudly with a specific, actionable error instead of letting Prisma reject with a cryptic "Argument `title` is missing". */
+function assertComplete(article: GeneratedArticle) {
+  const REQUIRED_FIELDS: (keyof LocalizedFields)[] = ["title", "excerpt", "body", "seoTitle", "seoDescription"];
+  for (const locale of ["en", "ru", "es", "ar"] as const) {
+    const fields = article[locale];
+    if (!fields || typeof fields !== "object") {
+      throw new Error(`Claude's article response is missing the "${locale}" section entirely — likely a truncated or malformed tool call.`);
+    }
+    for (const field of REQUIRED_FIELDS) {
+      if (!fields[field] || typeof fields[field] !== "string") {
+        throw new Error(`Claude's article response is missing "${locale}.${field}" — likely a truncated or malformed tool call.`);
+      }
+    }
+  }
 }
 
 async function uniqueSlug(base: string): Promise<string> {
